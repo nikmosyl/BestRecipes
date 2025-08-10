@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+#warning("Будет удалён 24.08.2025")
+
 struct TestView: View {
     @StateObject private var viewModel = TestViewModel()
     

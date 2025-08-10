@@ -7,6 +7,8 @@
 
 import Foundation
 
+#warning("Будет удалён 24.08.2025")
+
 final class TestViewModel: ObservableObject {
     @Published var counter = 0
     
