@@ -1,6 +1,16 @@
 # BestRecipes
+<div style="width: 100%; height: 200px; overflow: hidden;">
+  <img
+    src="https://cdn.accelonline.io/OUR6G_IgJkCvBg5qurB2Ag/images/1KipejOTs0qgfOTr1grCFg.jpeg"
+    alt="Onboarding Preview"
+    style="width: 100%; height: auto; object-fit: cover; object-position: center;"
+  >
+**iOS app for discovering and managing recipes with SwiftUI + MVVM**
+</div>
 
-iOS app for browsing, searching, and managing recipes in a clear MVVM-based architecture.
+--- 
+
+**BestRecipes** is a SwiftUI-based iOS application that helps users discover, search, and manage cooking recipes. Users can explore trending recipes by categories and cuisines, search for specific meals, view detailed recipe information (ingredients, cooking instructions), save favorites, and even add their own recipes. Built with modular MVVM architecture for maintainability and scalability.
 
 ## Table of Contents
 
@@ -26,21 +36,33 @@ iOS app for browsing, searching, and managing recipes in a clear MVVM-based arch
 
 ## Features
 
-- **Onboarding**: Welcoming flow for new users  
-- **Home**: Trending recipes, categories, and preview content  
-- **Search**: Dynamic search UI to find recipes  
-- **Recipe Detail**: Full recipe view with ingredients and instructions  
-- **Saved / See All / Discover**: Collection management  
-- **(Advanced)**: Create Recipe and Profile screens
+### Core Features
+- **Onboarding**: Welcome guide for new users
+- **Home**: Popular recipes by categories, search via SearchBar
+- **TabBar**: Navigation (Home, Favorites, + placeholders for others)
+- **Search**: Recipe search by keywords
+- **Recipe Details**: Complete recipe information (ingredients, instructions)
+- **Favorites**: Save recipes to favorites (in-memory until app closes)
+- **Categories**: Recipe collection by dish categories
+- **Cuisines**: Recipe collection by world cuisines
+
+### Advanced Features
+- **Create Recipe**: Add custom recipes (with persistent storage)
+- **Profile**: User profile with avatar change capability
+- **Ingredients Checklist**: Checkboxes to mark available ingredients
+
 
 ---
 
 ## Tech Stack & Architecture
 
-- Swift 5+, Xcode 15+  
-- Architecture pattern: **MVVM** using modules per feature  
-- Network interaction via Spoonacular API (or any other)  
-- Manual navigation flow — intentionally simple for learning clarity
+- **Language**: Swift 5+
+- **UI Framework**: SwiftUI
+- **Minimum iOS**: iOS 15.0+ (TBD)
+- **Architecture**: MVVM with modular structure
+- **Networking**: URLSession + Spoonacular API
+- **Data Storage**: UserDefaults (basic version), Core Data (advanced)
+- **Navigation**: Manual navigation flow (to be developed during implementation)
 
 ---
 
@@ -77,6 +99,7 @@ cd BestRecipes
 </plist>
 ```
 
+3. Open BestRecipes.xcodeproj in Xcode
 ---
 
 ## Usage
@@ -94,14 +117,41 @@ cd BestRecipes
 
 ---
 
+## Roadmap
+
+Current progress and tasks are tracked on [GitHub Projects Board](https://github.com/users/nikmosyl/projects/3)
+
+### Week 1
+- [ ] Basic navigation and TabBar
+- [ ] Onboarding screen
+- [ ] Home screen with categories
+- [ ] Spoonacular API integration
+
+### Week 2
+- [ ] Recipe Details screen
+- [ ] Search functionality
+- [ ] Favorites (in-memory)
+- [ ] Categories & Cuisines collections
+
+### Advanced (if time permits)
+- [ ] Create Recipe
+- [ ] Profile screen
+- [ ] Persistent storage
+
+---
+
 ## Contributing
 
-Contributions and issue reports are welcome!
+We're working as a team! Guidelines:
 
-* Start with git checkout -b feature/YourFeatureName
+1. Pick tasks from [Project Board](https://github.com/users/nikmosyl/projects/3)
+2. Create feature branch: `git checkout -b feature/module-name`
+3. Work in modules under `Modules/` folder
+4. Examples: `Modules/Test` (MVVM example), `Modules/NetworkTest` (API example)
+5. Write descriptive commits in English
+6. Submit Pull Request when task is complete
 
-* Make your changes, commit, and open a Pull Request
-
+**Team sync-ups**: Sunday - general sync and weekly planning
 ---
 
 ## ⚖️ License
