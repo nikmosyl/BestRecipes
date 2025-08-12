@@ -17,7 +17,7 @@ struct BookmarkButton: View {
             ZStack {
                 Circle()
                     .foregroundStyle(.white)
-                Image(systemName: "bookmark.fill")
+                Image("BookmarkInactive")
                     .resizable()
                     .scaledToFit()
                     .frame(height: 18)

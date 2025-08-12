@@ -13,14 +13,14 @@ struct RatingView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color.gray.opacity(0.6), strokeBorder: .clear)
-                .frame(width: 80, height: 35)
+                .frame(width: 70, height: 30)
             
-            HStack {
+            HStack(spacing: 4) {
                 Image(systemName: "star.fill")
                     .foregroundColor(.black)
                 
                 Text(String(format: "%.1f", rating))
-                    .bold()
+                    .font(.custom("Poppins-SemiBold", size: 16))
                     .foregroundStyle(.white)
             }
             

@@ -9,62 +9,69 @@ import SwiftUI
 
 struct RecipeItem: View {
     var recipe: Recipe
+    var showCookingTime: Bool
     
     var body: some View {
-        GeometryReader { reader in
-            VStack(alignment: .leading) {
-                ZStack(alignment: .topLeading) {
-                    AsyncImage(url: URL(string: recipe.imageURL ?? "")) { image in
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: reader.size.width * 0.9, height: reader.size.height * 0.25)
-                            .clipped()
-                    } placeholder: {
+        VStack(alignment: .leading) {
+            ZStack(alignment: .bottomTrailing) {
+                AsyncImage(url: URL(string: recipe.imageURL ?? "")) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height: 200)
+                        .clipped()
+                } placeholder: {
+                    ZStack {
+                        Color.clear
                         ProgressView()
-                            .frame(width: reader.size.width * 0.9, height: reader.size.height * 0.25)
+                            .frame(height: 200)
                     }
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                
+                VStack {
                     HStack {
                         RatingView(rating: recipe.rating)
-                        
                         Spacer()
-                        
                         BookmarkButton {
+                            /*при срабатывании кнопки будет предаваться в соответствующий менеджер recipe.id
+                             */
                             print("--> tapped bookmark button")
                         }
                     }
-                    .padding()
-                }
-                
-                Text("\(recipe.title ?? "unknown")")
-                    .lineLimit(1)
-                    .font(.custom("Poppins-SemiBold", size: 16))
-                    .foregroundStyle(.primary)
-                
-                HStack {
-                    //placeholder для будущей картинки
-                    Rectangle()
-                        .frame(width: reader.size.width * 0.1, height: reader.size.width * 0.1)
-                        .clipShape(Circle())
-                        .foregroundStyle(.gray)
-                    
-                    Text(recipe.author ?? "Unknown")
-                        .font(.custom("Poppins-Regular", size: 12))
-                        .foregroundStyle(.secondary)
-                    
                     Spacer()
                 }
+                .padding()
+                
+                
+                if showCookingTime {
+                    CookingTimeView(cookingInMinutes: recipe.readyInMinutes ?? 0)
+                        .padding()
+                }
             }
-            .frame(
-                width: reader.size.width * 0.9,
-                height: reader.size.height * 0.3
-            )
-            .frame(maxWidth: .infinity, alignment: .center)
+            .frame(height: 200)
+            
+            Text("\(recipe.title ?? "unknown")")
+                .lineLimit(1)
+                .font(.custom("Poppins-SemiBold", size: 16))
+            
+            HStack {
+                Rectangle()
+                    .frame(width: 30, height: 30)
+                    .clipShape(Circle())
+                    .foregroundStyle(.gray)
+                
+                Text(recipe.author ?? "Unknown")
+                    .font(.custom("Poppins-Regular", size: 12))
+                    .foregroundStyle(.secondary)
+                
+                Spacer()
+            }
         }
+        .padding()
     }
 }
+
 
 #Preview {
     RecipeItem(
@@ -86,6 +93,7 @@ struct RecipeItem: View {
                 "dinner"
             ],
             servings: 4
-        )
+        ),
+        showCookingTime: true
     )
 }
