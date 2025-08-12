@@ -9,29 +9,27 @@ import SwiftUI
 import PhotosUI
 
 struct CreateRecipeView: View {
-    @State private var selectedItem: PhotosPickerItem?
-    @State private var uiImage: UIImage?
+    @StateObject private var viewModel = CreateRecipeViewModel()
     
     var body: some View {
         ScrollView {
             Group {
-                if let uiImage {
+                if let uiImage = viewModel.recipeImage {
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFill()
                         .frame(height: 200)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                         .overlay(alignment: .topTrailing) {
-                            PhotosPicker(selection: $selectedItem, matching: .images) {
+                            PhotosPicker(selection: $viewModel.selectedPhotoItem, matching: .images) {
                                 Image(systemName: "camera.on.rectangle")
                                     .padding(8)
                                     .background(.ultraThinMaterial, in: Circle())
                             }
                             .padding(10)
                         }
-                        .onChange(of: selectedItem) { newValue in
-                            // TODO: Implement loadImage
-                            print("")
+                        .onChange(of: viewModel.selectedPhotoItem) { newValue in
+                            viewModel.loadImage()
                         }
                 } else {
 

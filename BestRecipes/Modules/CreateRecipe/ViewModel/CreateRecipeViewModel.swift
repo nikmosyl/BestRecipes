@@ -5,10 +5,10 @@
 //  Created by Иван Семикин on 12/08/2025.
 //
 
-import Foundation
+import SwiftUI
 import PhotosUI
-import _PhotosUI_SwiftUI
 
+@MainActor
 final class CreateRecipeViewModel: ObservableObject {
     @Published var title: String = ""
     @Published var author: String = ""
@@ -20,8 +20,21 @@ final class CreateRecipeViewModel: ObservableObject {
     @Published var instructions: [Instruction] = []
     
     @Published var ingredients: [Ingredient] = []
-    
+
     @Published var selectedPhotoItem: PhotosPickerItem? = nil
     @Published var recipeImage: UIImage? = nil
     @Published var isLoadingImage: Bool = false
+    
+    func loadImage() {
+        guard let selectedPhotoItem else { return }
+        
+        isLoadingImage = true
+        
+        Task {
+            if let data = try? await selectedPhotoItem.loadTransferable(type: Data.self) {
+                recipeImage = UIImage(data: data)
+            }
+            isLoadingImage = false
+        }
+    }
 }
