@@ -8,10 +8,24 @@
 import SwiftUI
 
 @main
-struct BestRecipesApp: App {
+struct OnboardingApp: App {
+    @State private var showOnboarding = true
+    
     var body: some Scene {
         WindowGroup {
-            TestView()
+            if showOnboarding {
+                OnboardingView()
+                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                        checkFirstLaunch()
+                    }
+            } else {
+                TestView()
+            }
         }
+    }
+    
+    private func checkFirstLaunch() {
+        let hasLaunchedBefore = UserDefaults.standard.bool(forKey: "hasLaunchedBefore")
+        showOnboarding = !hasLaunchedBefore
     }
 }
