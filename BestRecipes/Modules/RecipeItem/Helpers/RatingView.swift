@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RatingView: View {
-    @State var rating: Double = 5.0
+    var rating: Double 
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
@@ -29,5 +29,5 @@ struct RatingView: View {
 }
 
 #Preview {
-    RatingView()
+    RatingView(rating: 4.5)
 }

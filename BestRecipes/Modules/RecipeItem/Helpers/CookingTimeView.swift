@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CookingTimeView: View {
-    @State var cookingInMinutes: Int = 30
+    var cookingInMinutes: Int 
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
@@ -29,5 +29,5 @@ struct CookingTimeView: View {
 }
 
 #Preview {
-    CookingTimeView()
+    CookingTimeView(cookingInMinutes: 30)
 }
