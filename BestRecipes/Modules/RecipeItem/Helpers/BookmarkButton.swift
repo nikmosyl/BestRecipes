@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BookmarkButton: View {
     var action: () -> Void
-    
+    @Binding var isBookmarked: Bool
     var body: some View {
         Button {
             action()
@@ -17,7 +17,7 @@ struct BookmarkButton: View {
             ZStack {
                 Circle()
                     .foregroundStyle(.white)
-                Image("BookmarkInactive")
+                Image(isBookmarked ? "BookmarkActive" : "BookmarkInactive")
                     .resizable()
                     .scaledToFit()
                     .frame(height: 18)
@@ -29,6 +29,6 @@ struct BookmarkButton: View {
 
 #Preview {
     BookmarkButton(action: {
-            print("Button tapped!")
-        })
+        print("--> bookmark button tapped")
+    }, isBookmarked: .constant(true))
 }

@@ -18,6 +18,7 @@ import SwiftUI
 struct RecipeItem: View {
     var recipe: Recipe
     var showCookingTime: Bool
+    @State var isBookmarked: Bool
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -41,11 +42,15 @@ struct RecipeItem: View {
                     HStack {
                         RatingView(rating: recipe.rating)
                         Spacer()
-                        BookmarkButton {
-                            /*при срабатывании кнопки будет предаваться в соответствующий менеджер recipe.id
-                             */
-                            print("--> tapped bookmark button")
-                        }
+                        BookmarkButton(action: {
+                            switch isBookmarked {
+                            case false:
+                                DataManager.shared.addRecipe(recipe, to: .favorites)
+                            case true:
+                                DataManager.shared.deleteRecipe(recipe, from: .favorites)
+                            }
+                            isBookmarked.toggle()
+                        }, isBookmarked: $isBookmarked)
                     }
                     Spacer()
                 }
@@ -64,7 +69,7 @@ struct RecipeItem: View {
                 .font(.custom("Poppins-SemiBold", size: 16))
             
             HStack {
-                Rectangle()
+                Image("authorPlaceholder")
                     .frame(width: 30, height: 30)
                     .clipShape(Circle())
                     .foregroundStyle(.gray)
@@ -102,6 +107,7 @@ struct RecipeItem: View {
             ],
             servings: 4
         ),
-        showCookingTime: true
+        showCookingTime: true,
+        isBookmarked: true
     )
 }

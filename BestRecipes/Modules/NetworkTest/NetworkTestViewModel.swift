@@ -14,6 +14,8 @@ final class NetworkTestViewModel: ObservableObject {
     @Published var recipes: [Recipe] = []
     @Published var errorMessage: String?
     @Published var isLoading = false
+    //saved array "Bookmarked"
+    @Published var bookmarkedRecipes: [Recipe] = []
     
     func loadRecipes(query: String = "pasta") async {
         isLoading = true
@@ -27,5 +29,14 @@ final class NetworkTestViewModel: ObservableObject {
         }
         
         isLoading = false
+    }
+    
+    
+    func checkBookmarked(id: Int) -> Bool {
+        bookmarkedRecipes.contains { $0.id == id }
+    }
+    
+    func fetchBookmarkedRecipes() {
+        bookmarkedRecipes = DataManager.shared.getRecipesFrom(.favorites)
     }
 }
