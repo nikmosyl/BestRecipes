@@ -11,28 +11,46 @@ struct OnboardingPageView: View {
     let item: Onboarding
     
     var body: some View {
-        VStack(spacing: 24) {
+        VStack() {
             // Секция с изображением
             ZStack {
                 Image(item.imageName)
                     .resizable()
-                    .scaledToFit()
-                    .frame(width: .infinity, alignment: .center)
-                    .cornerRadius(16)
-                    .padding(.horizontal, 24)
+                    .scaledToFill() // Масштабируем чтобы заполнить всё пространство
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .clipped() // Обрезаем лишнее
+                    .edgesIgnoringSafeArea(.all) // Игнорируем безопасные зоны
+                    
+                // Добавляем контент поверх изображения
+                VStack(spacing: 24) {
+                    Spacer()
+                    
+                    // Секция с заголовком
+                    Text(item.title)
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding(.bottom, 8)
+                        .padding(.horizontal, 24)
+                        .background {
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Color.black.opacity(0.5))
+                        }
+                    
+                    // Секция с описанием
+                    Text(item.description)
+                        .font(.body)
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 24)
+                        .background {
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Color.black.opacity(0.5))
+                        }
+                }
             }
-            .padding(.top, 40)
             
-            // Секция с заголовком
-            Text(item.title)
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .foregroundColor(.black)
-                .padding(.bottom, 8)
-            
-            // Секция с описанием
-            Text(item.description)
-                .font(.body)
         }
+        .background(Color.black.opacity(0.8)) // Добавляем темный фон для контраста
     }
 }
