@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OnboardingPageView: View {
-    let item: OnboardingItem
+    let item: Onboarding
     
     var body: some View {
         VStack(spacing: 24) {

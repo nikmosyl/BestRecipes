@@ -10,18 +10,18 @@ import Combine
 
 class OnboardingViewModel: ObservableObject {
     @Published var currentPage = 0
-    @Published var items: [OnboardingItem] = [
-        OnboardingItem(
+    @Published var items: [Onboarding] = [
+        Onboarding(
             title: "Добро пожаловать!",
             description: "Откройте для себя мир новых возможностей",
-            imageName: "onboarding_1"
+            imageName: "Onboarding"
         ),
-        OnboardingItem(
+        Onboarding(
             title: "Основные функции",
             description: "Изучите все возможности приложения",
             imageName: "onboarding_2"
         ),
-        OnboardingItem(
+        Onboarding(
             title: "Начните сейчас",
             description: "Нажмите кнопку для продолжения",
             imageName: "onboarding_3"

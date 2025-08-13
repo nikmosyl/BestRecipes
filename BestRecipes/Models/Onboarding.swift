@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct OnboardingItem: Identifiable {
+struct Onboarding: Identifiable {
     let id = UUID()
     var title: String
     var description: String
