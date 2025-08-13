@@ -19,12 +19,12 @@ class OnboardingViewModel: ObservableObject {
         Onboarding(
             title: "Основные функции",
             description: "Изучите все возможности приложения",
-            imageName: "onboarding_2"
+            imageName: "Onboarding1"
         ),
         Onboarding(
             title: "Начните сейчас",
             description: "Нажмите кнопку для продолжения",
-            imageName: "onboarding_3"
+            imageName: "Onboarding2"
         )
     ]
     
