@@ -5,49 +5,42 @@
 //  Created by Rook on 12.08.2025.
 //
 
-import SwiftUI
+import Foundation
+import Combine
 
-struct OnboardingView: View {
-    @StateObject private var viewModel = OnboardingViewModel()
+class OnboardingViewModel: ObservableObject {
+    @Published var currentPage = 0
+    @Published var items: [OnboardingItem] = [
+        OnboardingItem(
+            title: "Добро пожаловать!",
+            description: "Откройте для себя мир новых возможностей",
+            imageName: "onboarding_1"
+        ),
+        OnboardingItem(
+            title: "Основные функции",
+            description: "Изучите все возможности приложения",
+            imageName: "onboarding_2"
+        ),
+        OnboardingItem(
+            title: "Начните сейчас",
+            description: "Нажмите кнопку для продолжения",
+            imageName: "onboarding_3"
+        )
+    ]
     
-    var body: some View {
-        ZStack {
-            TabView(selection: $viewModel.currentPage) {
-                ForEach(viewModel.items) { item in
-                    OnboardingPageView(item: item)
-                        .tag(item.id)
-                }
-            }
-            .tabViewStyle(PageTabViewStyle())
-            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-            
-            VStack {
-                Spacer()
-                
-                if viewModel.isLastPage {
-                    Button(action: {
-                        viewModel.completeOnboarding()
-                        // Логика перехода к основному экрану
-                    }) {
-                        Text("Начать")
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
-                    }
-                    .padding()
-                }
-            }
-        }
-        .onAppear {
-            checkFirstLaunch()
-        }
+    var isLastPage: Bool {
+        return currentPage == items.count - 1
     }
     
-    private func checkFirstLaunch() {
-        let hasLaunchedBefore = UserDefaults.standard.bool(forKey: "hasLaunchedBefore")
-        if hasLaunchedBefore {
-            // Переход к основному экрану
-        }
+    func completeOnboarding() {
+        UserDefaults.standard.set(true, forKey: "hasLaunchedBefore")
+    }
+    
+    func nextPage() {
+        currentPage = min(currentPage + 1, items.count - 1)
+    }
+    
+    func previousPage() {
+        currentPage = max(currentPage - 1, 0)
     }
 }
