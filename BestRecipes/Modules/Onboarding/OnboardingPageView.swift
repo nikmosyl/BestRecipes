@@ -17,7 +17,7 @@ struct OnboardingPageView: View {
                 Image(item.imageName)
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 250)
+                    .frame(width: .infinity, alignment: .center)
                     .cornerRadius(16)
                     .padding(.horizontal, 24)
             }
