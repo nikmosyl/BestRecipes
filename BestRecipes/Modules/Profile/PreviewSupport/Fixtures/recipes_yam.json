@@ -1,0 +1,581 @@
+[
+  {
+    "dishTypes" : [
+      "morning meal",
+      "brunch",
+      "breakfast"
+    ],
+    "extendedIngredients" : [
+      {
+        "amount" : 1,
+        "id" : 11353,
+        "image" : "russet-or-idaho-potatoes.png",
+        "name" : "russet potatoes"
+      },
+      {
+        "amount" : 0.5,
+        "id" : 11298,
+        "image" : "parsnip.jpg",
+        "name" : "parsnips"
+      },
+      {
+        "amount" : 0.5,
+        "id" : 11601,
+        "image" : "sweet-potato.png",
+        "name" : "yams"
+      },
+      {
+        "amount" : 3,
+        "id" : 11215,
+        "image" : "garlic.png",
+        "name" : "garlic"
+      },
+      {
+        "amount" : 1,
+        "id" : 1123,
+        "image" : "egg.png",
+        "name" : "egg"
+      },
+      {
+        "amount" : 1,
+        "id" : 20081,
+        "image" : "flour.png",
+        "name" : "flour"
+      },
+      {
+        "amount" : 2,
+        "id" : 1102047,
+        "image" : "salt-and-pepper.jpg",
+        "name" : "salt and pepper"
+      },
+      {
+        "amount" : 0.5,
+        "id" : 11216,
+        "image" : "ginger.png",
+        "name" : "ginger"
+      },
+      {
+        "amount" : 2,
+        "id" : 4582,
+        "image" : "vegetable-oil.jpg",
+        "name" : "peanut"
+      },
+      {
+        "amount" : 2,
+        "id" : 1179,
+        "image" : "img.spoonacular.",
+        "name" : "applesauce and cream"
+      },
+      {
+        "amount" : 0.5,
+        "id" : 11282,
+        "image" : "brown-onion.png",
+        "name" : "other onion"
+      }
+    ],
+    "id" : 649300,
+    "image" : "https:\/\/img.spoonacular.com\/recipes\/649300-312x231.jpg",
+    "readyInMinutes" : 45,
+    "servings" : 2,
+    "sourceName" : "foodista.com",
+    "spoonacularScore" : 53.924781799316406,
+    "title" : "Latkes; Fried Vegetable Pancakes from Europe and the Middle East"
+  },
+  {
+    "dishTypes" : [
+      "side dish"
+    ],
+    "extendedIngredients" : [
+      {
+        "amount" : 4,
+        "id" : 2004,
+        "image" : "bay-leaves.jpg",
+        "name" : "pandan leaves"
+      },
+      {
+        "amount" : 100,
+        "id" : 12135,
+        "image" : "nuts-mixed.jpg",
+        "name" : "ginko nuts"
+      },
+      {
+        "amount" : 5.5,
+        "id" : 11413,
+        "image" : "white-powder.jpg",
+        "name" : "potato starch"
+      },
+      {
+        "amount" : 200,
+        "id" : 11422,
+        "image" : "pumpkin.png",
+        "name" : "pumpkin"
+      },
+      {
+        "amount" : 165,
+        "id" : 19335,
+        "image" : "sugar-in-bowl.png",
+        "name" : "sugar"
+      },
+      {
+        "amount" : 4,
+        "id" : 14412,
+        "image" : "water.png",
+        "name" : "water"
+      },
+      {
+        "amount" : 1,
+        "id" : 11601,
+        "image" : "sweet-potato.png",
+        "name" : "yam"
+      }
+    ],
+    "id" : 665504,
+    "image" : "https:\/\/img.spoonacular.com\/recipes\/665504-312x231.jpg",
+    "readyInMinutes" : 45,
+    "servings" : 5,
+    "sourceName" : "Foodista",
+    "spoonacularScore" : 70.87731170654297,
+    "title" : "Yam Cream with Ginko Nuts"
+  },
+  {
+    "dishTypes" : [
+      "side dish"
+    ],
+    "extendedIngredients" : [
+      {
+        "amount" : 1,
+        "id" : 6168,
+        "image" : "hot-sauce-or-tabasco.png",
+        "name" : "hot sauce"
+      },
+      {
+        "amount" : 1,
+        "id" : 4025,
+        "image" : "mayonnaise.png",
+        "name" : "mayonnaise"
+      },
+      {
+        "amount" : 1,
+        "id" : 2047,
+        "image" : "salt.jpg",
+        "name" : "salt"
+      },
+      {
+        "amount" : 4,
+        "id" : 11601,
+        "image" : "sweet-potato.png",
+        "name" : "yam"
+      }
+    ],
+    "id" : 716279,
+    "image" : "https:\/\/img.spoonacular.com\/recipes\/716279-312x231.jpg",
+    "readyInMinutes" : 45,
+    "servings" : 1,
+    "sourceName" : "Afrolems",
+    "spoonacularScore" : 19.958648681640625,
+    "title" : "Fried Yam and Spicy Mayo"
+  },
+  {
+    "dishTypes" : [
+      "side dish",
+      "antipasti",
+      "starter",
+      "snack",
+      "appetizer",
+      "antipasto",
+      "hor d'oeuvre"
+    ],
+    "extendedIngredients" : [
+      {
+        "amount" : 2,
+        "id" : 11477,
+        "image" : "zucchini.jpg",
+        "name" : "zucchini"
+      },
+      {
+        "amount" : 2,
+        "id" : 11601,
+        "image" : "sweet-potato.png",
+        "name" : "yams"
+      },
+      {
+        "amount" : 1,
+        "id" : 1001009,
+        "image" : "shredded-cheddar.jpg",
+        "name" : "cheddar cheese"
+      },
+      {
+        "amount" : 2,
+        "id" : 1123,
+        "image" : "egg.png",
+        "name" : "eggs"
+      },
+      {
+        "amount" : 0.25,
+        "id" : 18079,
+        "image" : "breadcrumbs.jpg",
+        "name" : "breadcrumbs"
+      },
+      {
+        "amount" : 0.25,
+        "id" : 2047,
+        "image" : "salt.jpg",
+        "name" : "salt"
+      },
+      {
+        "amount" : 0.25,
+        "id" : 1002030,
+        "image" : "pepper.jpg",
+        "name" : "ground pepper"
+      },
+      {
+        "amount" : 0.25,
+        "id" : 1022020,
+        "image" : "garlic-powder.png",
+        "name" : "garlic powder"
+      },
+      {
+        "amount" : 0.25,
+        "id" : 1032027,
+        "image" : "seasoning.png",
+        "name" : "mrs dash original blend"
+      }
+    ],
+    "id" : 665704,
+    "image" : "https:\/\/img.spoonacular.com\/recipes\/665704-312x231.jpg",
+    "readyInMinutes" : 45,
+    "servings" : 12,
+    "sourceName" : "Foodista",
+    "spoonacularScore" : 34.02647018432617,
+    "title" : "Zucchini and Yam Fritters"
+  },
+  {
+    "dishTypes" : [
+      "side dish"
+    ],
+    "extendedIngredients" : [
+      {
+        "amount" : 1,
+        "id" : 43274,
+        "image" : "cream-cheese.jpg",
+        "name" : "cream cheese"
+      },
+      {
+        "amount" : 2,
+        "id" : 11215,
+        "image" : "garlic.png",
+        "name" : "garlic"
+      },
+      {
+        "amount" : 4,
+        "id" : 1102047,
+        "image" : "salt-and-pepper.jpg",
+        "name" : "kosher salt and pepper"
+      },
+      {
+        "amount" : 2,
+        "id" : 11601,
+        "image" : "sweet-potato.png",
+        "name" : "yams"
+      }
+    ],
+    "id" : 651238,
+    "image" : "https:\/\/img.spoonacular.com\/recipes\/651238-312x231.jpg",
+    "readyInMinutes" : 45,
+    "servings" : 4,
+    "sourceName" : "Foodista",
+    "spoonacularScore" : 76.60409545898438,
+    "title" : "Simple Mashed Yams"
+  },
+  {
+    "dishTypes" : [
+      "lunch",
+      "main course",
+      "main dish",
+      "dinner"
+    ],
+    "extendedIngredients" : [
+      {
+        "amount" : 8,
+        "id" : 10115117,
+        "image" : "tuna-steak.png",
+        "name" : "sashimi grade ahi tuna filet"
+      },
+      {
+        "amount" : 2,
+        "id" : 11151,
+        "image" : "chicory.jpg",
+        "name" : "belgian endive"
+      },
+      {
+        "amount" : 1,
+        "id" : 21052,
+        "image" : "mixed-greens-or-mesclun.jpg",
+        "name" : "pea greens"
+      },
+      {
+        "amount" : 0.25,
+        "id" : 99288,
+        "image" : "dark-sauce.jpg",
+        "name" : "sauce"
+      },
+      {
+        "amount" : 2,
+        "id" : 11916,
+        "image" : "red-pepper.jpg",
+        "name" : "roasted peppers"
+      },
+      {
+        "amount" : 2,
+        "id" : 11601,
+        "image" : "sweet-potato.png",
+        "name" : "yams"
+      }
+    ],
+    "id" : 13073,
+    "image" : "https:\/\/img.spoonacular.com\/recipes\/13073-312x231.jpg",
+    "readyInMinutes" : 52,
+    "servings" : 4,
+    "sourceName" : "Foodista",
+    "spoonacularScore" : 90.68047332763672,
+    "title" : "Seared Ahi Tuna Salad"
+  },
+  {
+    "dishTypes" : [
+      "morning meal",
+      "brunch",
+      "breakfast"
+    ],
+    "extendedIngredients" : [
+      {
+        "amount" : 2,
+        "id" : 18369,
+        "image" : "white-powder.jpg",
+        "name" : "baking powder"
+      },
+      {
+        "amount" : 1,
+        "id" : 99278,
+        "image" : "chocolate-chips.jpg",
+        "name" : "chocolate chips"
+      },
+      {
+        "amount" : 0.5,
+        "id" : 2010,
+        "image" : "cinnamon.jpg",
+        "name" : "cinnamon"
+      },
+      {
+        "amount" : 1,
+        "id" : 1123,
+        "image" : "egg.png",
+        "name" : "egg"
+      },
+      {
+        "amount" : 1,
+        "id" : 20081,
+        "image" : "flour.png",
+        "name" : "flour"
+      },
+      {
+        "amount" : 0.33333334,
+        "id" : 4582,
+        "image" : "vegetable-oil.jpg",
+        "name" : "oil"
+      },
+      {
+        "amount" : 0.5,
+        "id" : 9206,
+        "image" : "orange-juice.jpg",
+        "name" : "orange juice"
+      },
+      {
+        "amount" : 1,
+        "id" : 2047,
+        "image" : "salt.jpg",
+        "name" : "salt"
+      },
+      {
+        "amount" : 0.25,
+        "id" : 19335,
+        "image" : "sugar-in-bowl.png",
+        "name" : "sugar"
+      },
+      {
+        "amount" : 15,
+        "id" : 19335,
+        "image" : "sugar-in-bowl.png",
+        "name" : "sanding sugar"
+      },
+      {
+        "amount" : 16,
+        "id" : 11601,
+        "image" : "sweet-potato.png",
+        "name" : "yams- in the oven until"
+      }
+    ],
+    "id" : 662610,
+    "image" : "https:\/\/img.spoonacular.com\/recipes\/662610-312x231.jpg",
+    "readyInMinutes" : 45,
+    "servings" : 15,
+    "sourceName" : "Foodista",
+    "spoonacularScore" : 13.927546501159668,
+    "title" : "Sweet Potatoes Muffins"
+  },
+  {
+    "dishTypes" : [
+      "side dish"
+    ],
+    "extendedIngredients" : [
+      {
+        "amount" : 2,
+        "id" : 1123,
+        "image" : "egg.png",
+        "name" : "eggs"
+      },
+      {
+        "amount" : 0.5,
+        "id" : 1012010,
+        "image" : "cinnamon.jpg",
+        "name" : "ground cinnamon"
+      },
+      {
+        "amount" : 2,
+        "id" : 1053,
+        "image" : "fluid-cream.jpg",
+        "name" : "heavy cream"
+      },
+      {
+        "amount" : 1,
+        "id" : 12142,
+        "image" : "pecans.jpg",
+        "name" : "sugared pecans make these the day before"
+      },
+      {
+        "amount" : 0.25,
+        "id" : 2047,
+        "image" : "salt.jpg",
+        "name" : "salt"
+      },
+      {
+        "amount" : 2,
+        "id" : 11507,
+        "image" : "sweet-potato.png",
+        "name" : "sweet potatoes yams -or- 5 and sweet potatoes"
+      },
+      {
+        "amount" : 0.25,
+        "id" : 1145,
+        "image" : "butter-sliced.jpg",
+        "name" : "butter"
+      },
+      {
+        "amount" : 1,
+        "id" : 2050,
+        "image" : "vanilla-extract.jpg",
+        "name" : "vanilla extract"
+      },
+      {
+        "amount" : 0.5,
+        "id" : 10719335,
+        "image" : "sugar-in-bowl.png",
+        "name" : "sugar"
+      }
+    ],
+    "id" : 1043340,
+    "image" : "https:\/\/img.spoonacular.com\/recipes\/1043340-312x231.jpg",
+    "readyInMinutes" : 40,
+    "servings" : 6,
+    "sourceName" : "Pink When",
+    "spoonacularScore" : 29.67011260986328,
+    "title" : "The BEST Sweet Potato Casserole"
+  },
+  {
+    "dishTypes" : [
+      "morning meal",
+      "brunch",
+      "breakfast"
+    ],
+    "extendedIngredients" : [
+      {
+        "amount" : 2,
+        "id" : 18369,
+        "image" : "white-powder.jpg",
+        "name" : "baking powder"
+      },
+      {
+        "amount" : 1,
+        "id" : 2010,
+        "image" : "cinnamon.jpg",
+        "name" : "cinnamon"
+      },
+      {
+        "amount" : 3,
+        "id" : 1123,
+        "image" : "egg.png",
+        "name" : "eggs"
+      },
+      {
+        "amount" : 0.25,
+        "id" : 2025,
+        "image" : "ground-nutmeg.jpg",
+        "name" : "nutmeg"
+      },
+      {
+        "amount" : 0.5,
+        "id" : 9216,
+        "image" : "orange-zest.png",
+        "name" : "orange zest"
+      },
+      {
+        "amount" : 0.75,
+        "id" : 12142,
+        "image" : "pecans.jpg",
+        "name" : "pecans"
+      },
+      {
+        "amount" : 0.5,
+        "id" : 2047,
+        "image" : "salt.jpg",
+        "name" : "salt"
+      },
+      {
+        "amount" : 0.5,
+        "id" : 1082,
+        "image" : "milk.png",
+        "name" : "skim"
+      },
+      {
+        "amount" : 3,
+        "id" : 19335,
+        "image" : "sugar-in-bowl.png",
+        "name" : "sugar"
+      },
+      {
+        "amount" : 0.5,
+        "id" : 9019,
+        "image" : "applesauce.png",
+        "name" : "applesauce"
+      },
+      {
+        "amount" : 1.75,
+        "id" : 20080,
+        "image" : "flour.png",
+        "name" : "flour"
+      },
+      {
+        "amount" : 2,
+        "id" : 11507,
+        "image" : "sweet-potato.png",
+        "name" : "yams"
+      }
+    ],
+    "id" : 646422,
+    "image" : "https:\/\/img.spoonacular.com\/recipes\/646422-312x231.jpg",
+    "readyInMinutes" : 45,
+    "servings" : 12,
+    "sourceName" : "foodista.com",
+    "spoonacularScore" : 62.8051643371582,
+    "title" : "Healthier Cinnamon Crunch Sweet Potato Muffins"
+  }
+]

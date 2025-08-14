@@ -54,54 +54,17 @@ struct RecipeListViewAlternative: View {
 #if DEBUG
 struct RecipeListView_Previews: PreviewProvider {
     static var previews: some View {
+        let recipes = Fixtures.loadRecipes(named: "recipes_pasta")
+        
         ScrollView {
             RecipeListView(
-                recipes: [
-                    Recipe(
-                        id: 1,
-                        title: "Pasta Carbonara",
-                        instruction: nil,
-                        instructions: nil,
-                        author: "Italian Chef",
-                        spoonacularScore: 85.5,
-                        readyInMinutes: 30,
-                        imageURL: "https://img.spoonacular.com/recipes/642583-312x231.jpg",
-                        extendedIngredients: nil,
-                        dishTypes: ["main course"],
-                        servings: 4
-                    ),
-                    Recipe(
-                        id: 2,
-                        title: "Greek Salad",
-                        instruction: nil,
-                        instructions: nil,
-                        author: "Mediterranean Kitchen",
-                        spoonacularScore: 92.0,
-                        readyInMinutes: 15,
-                        imageURL: nil,
-                        extendedIngredients: nil,
-                        dishTypes: ["salad"],
-                        servings: 2
-                    ),
-                    Recipe(
-                        id: 3,
-                        title: "Tomato Soup",
-                        instruction: nil,
-                        instructions: nil,
-                        author: nil,
-                        spoonacularScore: 78.0,
-                        readyInMinutes: 45,
-                        imageURL: nil,
-                        extendedIngredients: nil,
-                        dishTypes: ["soup"],
-                        servings: 6
-                    )
-                ],
+                recipes: recipes,
                 onDelete: { _ in }
             )
             .padding()
         }
         .background(Color(.systemBackground))
+        .previewDisplayName("List - fixtures (recipes_pasta)")
     }
 }
 #endif

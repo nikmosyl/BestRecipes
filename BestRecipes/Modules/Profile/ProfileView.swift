@@ -107,20 +107,33 @@ struct ProfileView: View {
     }
 }
 
-#Preview("Profile - Empty") {
-    ProfileView(viewModel: .preview(recipes: []))
-}
+//#Preview("Profile - Empty") {
+//    ProfileView(viewModel: .preview(recipes: []))
+//}
+//
+//#Preview("Profile - Loading") {
+//    ProfileView(viewModel: .preview(isLoading: true))
+//}
+//
+//// Если у Recipe есть инициализатор - покажем грид
+//#Preview("Profile - With Recipes") {
+//    let samples: [Recipe] = [
+//        .mock(id: 1, title: "Pasta", readyInMinutes: 20),
+//        .mock(id: 2, title: "Salad", readyInMinutes: 10),
+//        .mock(id: 3, title: "Soup", readyInMinutes: 15)
+//    ]
+//    ProfileView(viewModel: .preview(recipes: samples))
+//}
 
-#Preview("Profile - Loading") {
-    ProfileView(viewModel: .preview(isLoading: true))
-}
 
-// Если у Recipe есть инициализатор - покажем грид
-#Preview("Profile - With Recipes") {
-    let samples: [Recipe] = [
-        .mock(id: 1, title: "Pasta", readyInMinutes: 20),
-        .mock(id: 2, title: "Salad", readyInMinutes: 10),
-        .mock(id: 3, title: "Soup", readyInMinutes: 15)
-    ]
-    ProfileView(viewModel: .preview(recipes: samples))
+#if DEBUG
+struct ProfileView_Previews: PreviewProvider {
+    static var previews: some View {
+        let recipes = Fixtures.loadRecipes(named: "recipes_pasta")
+        return ProfileView(viewModel: .preview(recipes: recipes))
+            .background(Color(.systemBackground))
+            .previewDisplayName("Profile – With Recipes (fixtures)")
+    }
 }
+#endif
+

@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-// Временная реализация карточки рецепта
-// TODO: Заменить на существующую, если есть
+// Карточка рецепта
 struct RecipeRowView: View {
     let recipe: Recipe
     
@@ -33,112 +32,94 @@ struct RecipeRowView: View {
                             )
                     @unknown default:
                         ProgressView()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        //.frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 }
                 .frame(height: 180)
                 .clipped()
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 
-                // Rating overlay (top-left)
-                VStack {
+                // Градиент внизу
+                LinearGradient(
+                    colors: [.clear, Color.black.opacity(0.2)],
+                    startPoint: .center, endPoint: .bottom
+                )
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                
+                // Верхний левый угол — рейтинг
+                VStack(alignment: .leading){
                     HStack {
-                        // Rating View
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(.ultraThinMaterial)
-                                .frame(width: 65, height: 28)
-                            
-                            HStack(spacing: 3) {
-                                Image(systemName: "star.fill")
-                                    .font(.system(size: 12))
-                                    .foregroundColor(.orange)
-                                
-                                Text(String(format: "%.1f", recipe.rating))
-                                    .font(.custom("Poppins-SemiBold", size: 14))
-                                    .foregroundStyle(.primary)
-                            }
-                        }
-                        
+                        ProfileRatingView(rating: recipe.rating)
                         Spacer()
-                        
-                        // BookmarkButton убран согласно дизайну Profile
                     }
+                    .padding(12)
+                    
                     Spacer()
                     
-                    // Recipe Title
-                    Text(recipe.title ?? "Unknown Recipe")
-                        .font(.custom("Poppins-SemiBold", size: 16))
-                        .lineLimit(2)
-                        .foregroundColor(.primary)
-                }
-                .padding(12)
-                
-                // Cooking Time (bottom-right)
-                if let minutes = recipe.readyInMinutes, minutes > 0 {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(.ultraThinMaterial)
-                            .frame(width: 56, height: 26)
+                    // Текст и время внизу
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text(recipe.title ?? "Unknown Recipe")
+                            .font(.custom("Poppins-Bold", size: 20))
+                            .foregroundColor(.white)
+                            .lineLimit(2)
                         
-                        Text(formatTime(minutes: minutes))
-                            .font(.custom("Poppins-Regular", size: 12))
-                            .foregroundStyle(.primary)
+                        HStack(spacing: 4) {
+                            // Количество ингредиентов
+                            if let ingredients = recipe.extendedIngredients, !ingredients.isEmpty {
+                                Text("\(ingredients.count) Ingredients |")
+                                    .font(.custom("Poppins-Regular", size: 12))
+                                    .foregroundColor(.white)
+                            }
+                            
+                            // Время готовки
+                            if let minutes = recipe.readyInMinutes, minutes > 0 {
+                                Text(formatTime(minutes: minutes))
+                                    .font(.custom("Poppins-Regular", size: 12))
+                                    .foregroundColor(.white)
+                                    .padding(.vertical, 4)
+                            }
+                        }
                     }
                     .padding(12)
                 }
+                
             }
             .frame(height: 180)
             
         }
         .padding(.vertical, 4)
+        .contentShape(Rectangle())
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(label)
     }
     
-    private func formatTime(minutes: Int) -> String {
-        let hours = minutes / 60
-        let mins = minutes % 60
-        
-        if hours > 0 {
-            return String(format: "%dh %02dm", hours, mins)
-        } else {
-            return String(format: "%d min", mins)
-        }
+    private var label: String {
+        let title = recipe.title ?? "Recipe"
+        let time = (recipe.readyInMinutes ?? 0) > 0 ? ", \(recipe.readyInMinutes!) min" : ""
+        return "\(title), rating \(String(format: "%.1f", recipe.rating))\(time)"
     }
+    
+}
+
+private func formatTime(minutes: Int) -> String {
+    let hours = minutes / 60
+    let mins = minutes % 60
+    return hours > 0
+    ? String(format: "%dh %02dm", hours, mins)
+    : String(format: "%d min", mins)
 }
 
 #if DEBUG
 struct RecipeRowView_Previews: PreviewProvider {
     static var previews: some View {
-        VStack(spacing: 20) {
-            RecipeRowView(recipe: Recipe(
-                id: 1,
-                title: "Pasta Carbonara with Bacon",
-                instruction: nil,
-                instructions: nil,
-                author: "Italian Chef",
-                spoonacularScore: 85.5,
-                readyInMinutes: 30,
-                imageURL: "https://img.spoonacular.com/recipes/642583-312x231.jpg",
-                extendedIngredients: nil,
-                dishTypes: ["main course"],
-                servings: 4
-            ))
-            
-            RecipeRowView(recipe: Recipe(
-                id: 2,
-                title: "Quick Salad",
-                instruction: nil,
-                instructions: nil,
-                author: nil,
-                spoonacularScore: 72.0,
-                readyInMinutes: 10,
-                imageURL: nil,
-                extendedIngredients: nil,
-                dishTypes: ["salad"],
-                servings: 2
-            ))
+        let recipes = Fixtures.loadRecipes(named: "recipes_yam")
+        return Group {
+            ForEach(recipes.prefix(3), id: \.id) { recipe in
+                RecipeRowView(recipe: recipe)
+                    .padding()
+                    .previewLayout(.sizeThatFits)
+            }
         }
-        .padding()
         .background(Color(.systemBackground))
     }
 }
