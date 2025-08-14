@@ -38,9 +38,12 @@ struct OnboardingView: View {
                         }) {
                             Text(viewModel.isLastPage ? "Начать" : "Далее")
                                 .padding()
-                                .background(Color.blue)
+                                .frame(width: 156, height: 56
+                                       , alignment: .center)
+                                .background(Color.red)
                                 .foregroundColor(.white)
                                 .cornerRadius(8)
+                            
                         }
                         .padding()
                     }

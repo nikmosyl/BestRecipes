@@ -12,7 +12,7 @@ class OnboardingViewModel: ObservableObject {
     @Published var currentPage = 0
     @Published var items: [Onboarding] = [
         Onboarding(
-            title: "Добро пожаловать!",
+            title: "Best Recipes",
             description: "Откройте для себя мир новых возможностей",
             imageName: "Onboarding"
         ),
