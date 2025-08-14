@@ -9,51 +9,34 @@ import SwiftUI
 
 struct OnboardingView: View {
     @StateObject private var viewModel = OnboardingViewModel()
+    @State private var showOnboarding = true
     
     var body: some View {
         ZStack {
-            TabView(selection: $viewModel.currentPage) {
-                ForEach(viewModel.items) { item in
-                    OnboardingPageView(item: item)
-                        .tag(item.id)
-                }
-            }
-            .tabViewStyle(.page)
-            .indexViewStyle(.page(backgroundDisplayMode: .always))
-            
-            VStack {
-                Spacer()
-                
-                HStack {
-                    if viewModel.currentPage > 0 {
-                        Button(action: {
-                            viewModel.previousPage()
-                        }) {
-                            Text("Назад")
-                                .padding()
-                                .foregroundColor(.blue)
-                        }
+            if showOnboarding {
+                TabView(selection: $viewModel.currentPage) {
+                    ForEach(viewModel.items.indices, id: \.self) { index in
+                        OnboardingPageView(item: viewModel.items[index])
+                            .tag(index)
                     }
-                    
-                    Spacer()
-                    
-                    if viewModel.isLastPage {
+                }
+                .tabViewStyle(.page)
+                .indexViewStyle(.page(backgroundDisplayMode:.always))
+                .overlay(alignment: .bottom) {
+                    HStack {
+                        
+                        
+                        Spacer()
+                        
                         Button(action: {
-                            viewModel.completeOnboarding()
-                            // Переход к основному экрану
+                            if viewModel.isLastPage {
+                                viewModel.completeOnboarding()
+                                showOnboarding = false
+                            } else {
+                                viewModel.nextPage()
+                            }
                         }) {
-                            Text("Начать")
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(8)
-                        }
-                        .padding()
-                    } else {
-                        Button(action: {
-                            viewModel.nextPage()
-                        }) {
-                            Text("Далее")
+                            Text(viewModel.isLastPage ? "Начать" : "Далее")
                                 .padding()
                                 .background(Color.blue)
                                 .foregroundColor(.white)
@@ -62,20 +45,23 @@ struct OnboardingView: View {
                         .padding()
                     }
                 }
+                .onAppear {
+                    checkFirstLaunch()
+                }
+            } else {
+                TestView()
             }
-        }
-        .onAppear {
-            checkFirstLaunch()
         }
     }
     
     private func checkFirstLaunch() {
         let hasLaunchedBefore = UserDefaults.standard.bool(forKey: "hasLaunchedBefore")
         if hasLaunchedBefore {
-            // Логика перехода к основному экрану
+            showOnboarding = true
         }
     }
 }
+
 #Preview {
     OnboardingView()
 }

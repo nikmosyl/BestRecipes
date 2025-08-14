@@ -37,6 +37,7 @@ class OnboardingViewModel: ObservableObject {
     }
     
     func nextPage() {
+        print("Переход на страницу \(currentPage + 1)") // Отладка
         currentPage = min(currentPage + 1, items.count - 1)
     }
     

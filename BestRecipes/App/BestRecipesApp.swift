@@ -8,18 +8,20 @@
 import SwiftUI
 
 @main
-struct OnboardingApp: App {
+struct MyApp: App {
     @State private var showOnboarding = true
     
     var body: some Scene {
         WindowGroup {
-            if showOnboarding {
-                OnboardingView()
-                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-                        checkFirstLaunch()
-                    }
-            } else {
-                TestView()
+            ZStack {
+                if showOnboarding {
+                    OnboardingView()
+                        .onAppear {
+                            checkFirstLaunch()
+                        }
+                } else {
+                    TestView()
+                }
             }
         }
     }
