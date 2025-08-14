@@ -51,7 +51,7 @@ struct OnboardingView: View {
             } else {
                 TestView()
             }
-        }
+        }.ignoresSafeArea()
     }
     
     private func checkFirstLaunch() {

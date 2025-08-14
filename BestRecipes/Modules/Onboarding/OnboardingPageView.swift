@@ -12,17 +12,19 @@ struct OnboardingPageView: View {
     
     var body: some View {
         ZStack {
-            // Фон изображения
+            // Фоновое изображение
             Image(item.imageName)
                 .resizable()
                 .scaledToFill()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .frame(width: .infinity, height: .infinity)
                 .ignoresSafeArea()
                 .clipped()
-                
+                .overlay(
+                    Color.black.opacity(0.3)
+                )
             
             // Контент поверх изображения
-            VStack(spacing: 24) {
+            VStack(spacing: 0) {
                 Spacer()
                 
                 // Заголовок
@@ -48,11 +50,11 @@ struct OnboardingPageView: View {
                             .fill(Color.black.opacity(0.5))
                     }
                 
-                // Дополнительное пространство
                 Spacer()
             }
-            .padding()
-            
+            .padding(0) // Полностью убираем все отступы
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+        .ignoresSafeArea()
     }
 }
