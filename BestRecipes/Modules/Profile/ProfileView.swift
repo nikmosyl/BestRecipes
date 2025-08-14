@@ -23,7 +23,7 @@ struct ProfileView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 20) {
                     // Profile Header
@@ -48,11 +48,7 @@ struct ProfileView: View {
             .navigationTitle("My Profile")
             .navigationBarTitleDisplayMode(.large)
         }
-        .sheet(isPresented: viewModel.showImagePicker) { // Передаем Binding напрямую
-            ProfileImagePicker(image: Binding(
-                get: { viewModel.profileImage },
-                set: { viewModel.updateProfileImage($0) }
-            ))
+        .sheet(isPresented: $viewModel.showImagePicker) { ProfileImagePicker(image: $viewModel.profileImage)
         }
         .onAppear {
             // Обновляем данные при появлении экрана (при переключении между вкладками в TabView)
@@ -64,7 +60,7 @@ struct ProfileView: View {
         HStack(alignment: .top, spacing: 20) {
             ProfileImageView(image: viewModel.profileImage)
                 .onTapGesture {
-                    viewModel.showImagePicker.wrappedValue = true  // Используем Binding
+                    viewModel.showImagePicker = true
                 }
             
             Spacer()

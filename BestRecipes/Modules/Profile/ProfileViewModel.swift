@@ -50,12 +50,7 @@ final class ProfileViewModel: ObservableObject {
         state.isLoading
     }
     
-    var showImagePicker: Binding<Bool> {
-        Binding(
-            get: { self.state.showImagePicker },
-            set: { self.state.showImagePicker = $0 }
-        )
-    }
+    @Published var showImagePicker = false
     
     var hasRecipes: Bool {
         !state.myRecipes.isEmpty

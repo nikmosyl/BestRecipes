@@ -30,11 +30,8 @@ struct TestAppRunner: View {
     }
     
     private var testControlsView: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 20) {
-                Text("Test Controls")
-                    .font(.largeTitle)
-                    .padding()
                 
                 VStack(alignment: .leading, spacing: 16) {
                     Text("Current Status:")
@@ -56,6 +53,7 @@ struct TestAppRunner: View {
                     Button(action: addTestRecipe) {
                         Label("Add Test Recipe", systemImage: "plus.circle.fill")
                             .frame(maxWidth: .infinity)
+                            .padding(.vertical, 12)
                     }
                     .buttonStyle(.borderedProminent)
                     .disabled(isAddingRecipe)
@@ -63,6 +61,7 @@ struct TestAppRunner: View {
                     Button(action: clearAllRecipes) {
                         Label("Clear All Recipes", systemImage: "trash.fill")
                             .frame(maxWidth: .infinity)
+                            .padding(.vertical, 12)
                     }
                     .buttonStyle(.bordered)
                     .tint(.red)
