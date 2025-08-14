@@ -8,19 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @StateObject private var viewModel: ProfileViewModel
-    
-    // передаём готовый VM (для превью/DI)
-    @MainActor
-    init(viewModel: ProfileViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
-    }
-    
-    // дефолтный init для прод-кода
-    @MainActor
-    init() {
-        _viewModel = StateObject(wrappedValue: ProfileViewModel())
-    }
+    @StateObject private var viewModel = ProfileViewModel()
     
     var body: some View {
         NavigationStack {
@@ -45,7 +33,7 @@ struct ProfileView: View {
                 .padding(.vertical)
             }
             .navigationTitle("My Profile")
-            .navigationBarTitleDisplayMode(.large)
+            .navigationBarTitleDisplayMode(.automatic)
             .refreshable { // Современный pull-to-refresh
                 viewModel.loadMyRecipes()
              }
@@ -95,9 +83,5 @@ struct ProfileView: View {
 #if DEBUG && swift(>=5.9)
 #Preview("Profile with recipes") {
     ProfileView()
-}
-
-#Preview("Profile empty") {
-    ProfileView(viewModel: ProfileViewModel())
 }
 #endif

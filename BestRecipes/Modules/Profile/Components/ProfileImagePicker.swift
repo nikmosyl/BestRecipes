@@ -4,7 +4,6 @@
 //
 //  Created by Aleksandr Meshchenko on 12.08.25.
 //
-
 import SwiftUI
 import PhotosUI
 
@@ -16,6 +15,7 @@ struct ProfileImagePicker: UIViewControllerRepresentable {
         var config = PHPickerConfiguration()
         config.filter = .images
         config.selectionLimit = 1
+        config.preferredAssetRepresentationMode = .current
         
         let picker = PHPickerViewController(configuration: config)
         picker.delegate = context.coordinator
@@ -41,14 +41,32 @@ struct ProfileImagePicker: UIViewControllerRepresentable {
             guard let provider = results.first?.itemProvider,
                   provider.canLoadObject(ofClass: UIImage.self) else { return }
             
-            provider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
-                if let error = error {
+            // Используем Task для async контекста
+            Task {
+                do {
+                    // Явно указываем тип UIImage
+                    let image: UIImage = try await withCheckedThrowingContinuation { continuation in
+                        provider.loadObject(ofClass: UIImage.self) { image, error in
+                            if let error = error {
+                                continuation.resume(throwing: error)
+                            } else if let image = image as? UIImage {
+                                continuation.resume(returning: image)
+                            } else {
+                                continuation.resume(throwing: NSError(
+                                    domain: "ProfileImagePicker",
+                                    code: -1,
+                                    userInfo: [NSLocalizedDescriptionKey: "Failed to load image"]
+                                ))
+                            }
+                        }
+                    }
+                    
+                    // Обновляем на главном потоке
+                    await MainActor.run {
+                        parent.image = image
+                    }
+                } catch {
                     print("Error loading image: \(error)")
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    self?.parent.image = image as? UIImage
                 }
             }
         }
