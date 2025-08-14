@@ -23,20 +23,7 @@ struct OnboardingView: View {
                 .tabViewStyle(.page)
                 .indexViewStyle(.page(backgroundDisplayMode:.always))
                 .overlay(alignment: .bottom) {
-                    HStack {
-                        if viewModel.currentPage > 0 {
-                            Button(action: {
-                                viewModel.completeOnboarding()
-                                showOnboarding = false
-                            }) {
-                                Text("Пропустить")
-                                    .foregroundColor(Color.white)
-                            }
-                            .padding()
-                        }
-                        
-                        Spacer()
-                        
+                    VStack(spacing: 16) { // Вертикальное расположение кнопок
                         Button(action: {
                             if viewModel.isLastPage {
                                 viewModel.completeOnboarding()
@@ -45,17 +32,29 @@ struct OnboardingView: View {
                                 viewModel.nextPage()
                             }
                         }) {
-                            Text(viewModel.isLastPage ? "Начать" : "Далее")
+                            Text(determineButtonTitle(for: viewModel.currentPage, totalPages: viewModel.items.count))
                                 .padding()
-                                .frame(width: 156, height: 56
-                                       , alignment: .center)
+                                .frame(width: 156, height: 56, alignment: .center)
                                 .background(Color.red)
                                 .foregroundColor(.white)
                                 .cornerRadius(8)
-                            
                         }
                         .padding()
+                        
+                        if viewModel.currentPage > 0 {
+                            Button(action: {
+                                viewModel.completeOnboarding()
+                                showOnboarding = false
+                            }) {
+                                Text("Пропустить")
+                                    .foregroundColor(Color.white)
+                                    .font(.subheadline)
+                            }
+                            .padding()
+                        }
                     }
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 24)
                 }
                 .onAppear {
                     checkFirstLaunch()
@@ -63,7 +62,8 @@ struct OnboardingView: View {
             } else {
                 TestView()
             }
-        }.ignoresSafeArea()
+        }
+        .ignoresSafeArea()
     }
     
     private func checkFirstLaunch() {
@@ -72,6 +72,19 @@ struct OnboardingView: View {
             showOnboarding = true
         }
     }
+    
+    private func determineButtonTitle(for currentPage: Int, totalPages: Int) -> String {
+        switch currentPage {
+        case 0:
+            return "Начать"
+        case 1..<totalPages-1:
+            return "Продолжить"
+        default:
+            return "Начать готовить"
+        }
+    }
+
+    
 }
 
 #Preview {
