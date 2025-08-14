@@ -13,41 +13,22 @@ final class ProfileViewModel: ObservableObject {
     
     // MARK: - Published Properties
     @Published private(set) var state = ProfileState()
-    private let isPreview: Bool
     
     // MARK: - Private Properties
-    private let storageManager = StorageManager.shared
+    private let dataManager = DataManager.shared
     private var cancellables = Set<AnyCancellable>()
-    
-    init(isPreview: Bool = false) {
-        self.isPreview = isPreview
-    }
-    
-#if DEBUG
-    // Специальный init для превью. Здесь можно писать в state,
-    // т.к. мы находимся в том же файле.
-    convenience init(previewImage: UIImage?, recipes: [Recipe], isLoading: Bool) {
-        self.init(isPreview: true)
-        self.state.profileImage = previewImage
-        self.state.myRecipes = recipes
-        self.state.isLoading = isLoading
-    }
-#endif
-    
-    func onAppear() {
-        guard !isPreview else { return }
-        load() // твой метод, который тянет из StorageManager
-    }
-    
-    private func load() {
-        // читаешь myRecipes, картинку и т.п.
-    }
     
     // MARK: - Constants
     private enum Constants {
         static let profileImageKey = "userProfileImage"
         static let compressionQuality: CGFloat = 0.8
         static let loadingDelay: TimeInterval = 0.3
+    }
+    
+    // MARK: - Initialization
+    init() {
+        loadMyRecipes()
+        state.profileImage = loadStoredImage()
     }
     
     // MARK: - Computed Properties
@@ -83,18 +64,13 @@ final class ProfileViewModel: ObservableObject {
         return count == 1 ? "1 recipe" : "\(count) recipes"
     }
     
-    //    // MARK: - Initialization
-    //    init() {
-    //        loadMyRecipes()
-    //        loadProfileImage()
-    //    }
-    
     // MARK: - Public Methods
     func loadMyRecipes() {
         state.isLoading = true
         state.errorMessage = nil
         
-        let recipes = storageManager.getRecipesFrom(.mine)
+        // Используем DataManager вместо StorageManager
+        let recipes = dataManager.getRecipesFrom(.mine)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.loadingDelay) { [weak self] in
             self?.state.myRecipes = recipes
@@ -104,12 +80,15 @@ final class ProfileViewModel: ObservableObject {
     
     func deleteRecipe(_ recipe: Recipe) {
         withAnimation(.easeOut(duration: 0.2)) {
-            storageManager.deleteRecipe(recipe, from: .mine)
+            dataManager.deleteRecipe(recipe, from: .mine)
             state.myRecipes.removeAll { $0.id == recipe.id }
         }
     }
     
-    // ❌ УДАЛИЛИ showImagePicker() метод - он не нужен, есть Binding
+    func addRecipe(_ recipe: Recipe) {
+        dataManager.addRecipe(recipe, to: .mine)
+        loadMyRecipes()
+    }
     
     func updateProfileImage(_ image: UIImage?) {
         guard let image = image else { return }
@@ -117,9 +96,6 @@ final class ProfileViewModel: ObservableObject {
     }
     
     // MARK: - Private Methods
-    private func loadProfileImage() {
-        state.profileImage = loadStoredImage()
-    }
     
     private func loadStoredImage() -> UIImage? {
         guard let data = UserDefaults.standard.data(forKey: Constants.profileImageKey),
@@ -137,6 +113,13 @@ final class ProfileViewModel: ObservableObject {
         }
         UserDefaults.standard.set(data, forKey: Constants.profileImageKey)
     }
+
+    #if DEBUG
+    func setTestData(recipes: [Recipe]) {
+        state.myRecipes = recipes
+        state.isLoading = false
+    }
+    #endif
 }
 
 // Usecase:

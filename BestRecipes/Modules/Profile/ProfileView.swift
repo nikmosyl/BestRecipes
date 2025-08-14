@@ -26,8 +26,8 @@ struct ProfileView: View {
     
     var body: some View {
         // Title
-        Text("My Profile")
-            .font(.custom("Poppins-Bold", size: 28))
+        Text("My profile")
+            .font(.custom("Poppins-SemiBold", size: 28))
         
         VStack(alignment: .leading, spacing: 40) {
             // Profile Header
@@ -107,33 +107,29 @@ struct ProfileView: View {
     }
 }
 
-//#Preview("Profile - Empty") {
-//    ProfileView(viewModel: .preview(recipes: []))
-//}
-//
-//#Preview("Profile - Loading") {
-//    ProfileView(viewModel: .preview(isLoading: true))
-//}
-//
-//// Если у Recipe есть инициализатор - покажем грид
-//#Preview("Profile - With Recipes") {
-//    let samples: [Recipe] = [
-//        .mock(id: 1, title: "Pasta", readyInMinutes: 20),
-//        .mock(id: 2, title: "Salad", readyInMinutes: 10),
-//        .mock(id: 3, title: "Soup", readyInMinutes: 15)
-//    ]
-//    ProfileView(viewModel: .preview(recipes: samples))
-//}
-
-
 #if DEBUG
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        let recipes = Fixtures.loadRecipes(named: "recipes_pasta")
-        return ProfileView(viewModel: .preview(recipes: recipes))
-            .background(Color(.systemBackground))
-            .previewDisplayName("Profile – With Recipes (fixtures)")
+        Group {
+            ProfileView(viewModel: createViewModelWithFixtures())
+                .previewDisplayName("With Recipes")
+            
+//            ProfileView(viewModel: createEmptyViewModel())
+//                .previewDisplayName("Empty State")
+        }
     }
+    
+    private static func createViewModelWithFixtures() -> ProfileViewModel {
+        let viewModel = ProfileViewModel()
+        let testRecipes = Fixtures.loadRecipes(named: "recipes_pasta")
+        viewModel.setTestData(recipes: testRecipes)
+        return viewModel
+    }
+    
+//    private static func createEmptyViewModel() -> ProfileViewModel {
+//        let viewModel = ProfileViewModel()
+//        viewModel.setTestData(recipes: [])
+//        return viewModel
+//    }
 }
 #endif
-
