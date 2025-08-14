@@ -13,18 +13,23 @@ class OnboardingViewModel: ObservableObject {
     @Published var items: [Onboarding] = [
         Onboarding(
             title: "Best Recipes",
-            description: "Откройте для себя мир новых возможностей",
+            description: "Откройте для себя мир новых вкусов",
             imageName: "Onboarding"
         ),
         Onboarding(
-            title: "Основные функции",
-            description: "Изучите все возможности приложения",
+            title: "Рецепты со всех",
+            description: "уголков бескрайнего света",
             imageName: "Onboarding1"
         ),
         Onboarding(
-            title: "Начните сейчас",
-            description: "Нажмите кнопку для продолжения",
+            title: "Рецепты буквально",
+            description: "расписаны со всеми деталями",
             imageName: "Onboarding2"
+        ),
+        Onboarding(
+            title: "Начни готовить прямо сейчас",
+            description: "или сохрани до особого случая",
+            imageName: "Onboarding3"
         )
     ]
     

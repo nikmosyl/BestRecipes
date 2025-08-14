@@ -24,7 +24,16 @@ struct OnboardingView: View {
                 .indexViewStyle(.page(backgroundDisplayMode:.always))
                 .overlay(alignment: .bottom) {
                     HStack {
-                        
+                        if viewModel.currentPage > 0 {
+                            Button(action: {
+                                viewModel.completeOnboarding()
+                                showOnboarding = false
+                            }) {
+                                Text("Пропустить")
+                                    .foregroundColor(Color.white)
+                            }
+                            .padding()
+                        }
                         
                         Spacer()
                         

@@ -16,7 +16,7 @@ struct OnboardingPageView: View {
             Image(item.imageName)
                 .resizable()
                 .scaledToFill()
-                .frame(width: .infinity, height: .infinity)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .ignoresSafeArea()
                 .clipped()
                 .overlay(
@@ -24,37 +24,33 @@ struct OnboardingPageView: View {
                 )
             
             // Контент поверх изображения
-            VStack(spacing: 0) {
+            VStack(spacing: 24) { // Увеличиваем пространство между элементами
                 Spacer()
                 
-                // Заголовок
-                Text(item.title)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .padding(.bottom, 8)
-                    .padding(.horizontal, 24)
-                    .background {
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.black.opacity(0.5))
-                    }
-                
-                // Описание
-                Text(item.description)
-                    .font(.body)
-                    .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 24)
-                    .background {
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.black.opacity(0.5))
-                    }
+                // Заголовок и описание в вертикальном стеке
+                VStack(alignment: .center) { // Центрируем по горизонтали
+                    Text(item.title)
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding(.bottom, 8)
+                        
+                    Text(item.description)
+                        .font(.body)
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                }
+                .padding(.horizontal, 24) // Отступы по бокам
                 
                 Spacer()
             }
-            .padding(0) // Полностью убираем все отступы
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .contentShape(Rectangle()) // Для правильного определения размера
         }
         .ignoresSafeArea()
     }
+}
+
+#Preview {
+    OnboardingView()
 }
