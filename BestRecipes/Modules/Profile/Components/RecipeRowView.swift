@@ -32,7 +32,6 @@ struct RecipeRowView: View {
                             )
                     @unknown default:
                         ProgressView()
-                        //.frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 }
                 .frame(height: 180)
@@ -47,7 +46,7 @@ struct RecipeRowView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 
                 // Верхний левый угол — рейтинг
-                VStack(alignment: .leading){
+                VStack(alignment: .leading) {
                     HStack {
                         ProfileRatingView(rating: recipe.rating)
                         Spacer()
@@ -94,10 +93,11 @@ struct RecipeRowView: View {
     }
     
     private var label: String {
-        let title = recipe.title ?? "Recipe"
-        let time = (recipe.readyInMinutes ?? 0) > 0 ? ", \(recipe.readyInMinutes!) min" : ""
-        return "\(title), rating \(String(format: "%.1f", recipe.rating))\(time)"
-    }
+         let title = recipe.title ?? "Recipe"
+         let minutes = recipe.readyInMinutes ?? 0
+         let time = minutes > 0 ? ", \(minutes) min" : ""
+         return "\(title), rating \(String(format: "%.1f", recipe.rating))\(time)"
+     }
     
 }
 
@@ -105,8 +105,8 @@ private func formatTime(minutes: Int) -> String {
     let hours = minutes / 60
     let mins = minutes % 60
     return hours > 0
-    ? String(format: "%dh %02dm", hours, mins)
-    : String(format: "%d min", mins)
+        ? String(format: "%dh %02dm", hours, mins)
+        : String(format: "%d min", mins)
 }
 
 #if DEBUG

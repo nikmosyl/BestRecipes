@@ -5,14 +5,6 @@
 //  Created by Aleksandr Meshchenko on 14.08.25.
 //
 
-
-//
-//  TestAppRunner.swift
-//  BestRecipes
-//
-//  Временный файл для тестирования ProfileModule
-//
-
 import SwiftUI
 
 struct TestAppRunner: View {
@@ -134,7 +126,7 @@ struct TestAppRunner: View {
 }
 
 // Использование в App:
-struct BestRecipesApp_Test: App {
+struct BestRecipesTestApp: App {
     var body: some Scene {
         WindowGroup {
             TestAppRunner()

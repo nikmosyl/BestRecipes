@@ -5,7 +5,6 @@
 //  Created by Aleksandr Meshchenko on 14.08.25.
 //
 
-
 import SwiftUI
 
 struct ProfileRatingView: View {
