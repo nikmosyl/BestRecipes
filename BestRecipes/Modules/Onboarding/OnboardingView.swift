@@ -74,18 +74,16 @@ struct OnboardingView: View {
     }
     
     private func determineButtonTitle(for currentPage: Int, totalPages: Int) -> String {
-        switch currentPage {
-        case 0:
-            return "Начать"
-        case 1..<totalPages-1:
-            return "Продолжить"
-        default:
-            return "Начать готовить"
-        }
-    }
-
-    
-}
+           switch currentPage {
+           case 0:
+               return "Начать"
+           case 1..<totalPages-1:
+               return "Продолжить"
+           default:
+               return "Начать готовить"
+           }
+       }
+   }
 
 #Preview {
     OnboardingView()
