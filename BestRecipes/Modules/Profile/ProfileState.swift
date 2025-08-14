@@ -14,4 +14,14 @@ struct ProfileState {
     var isLoading: Bool = false
     var showImagePicker: Bool = false
     var errorMessage: String?
+    
+    // Computed property
+    var hasRecipes: Bool {
+        !myRecipes.isEmpty
+    }
+    
+    var recipesCountText: String {
+        let count = myRecipes.count
+        return count == 1 ? "1 recipe" : "\(count) recipes"
+    }
 }

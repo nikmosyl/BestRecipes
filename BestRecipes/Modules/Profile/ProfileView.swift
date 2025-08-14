@@ -39,7 +39,6 @@ struct ProfileView: View {
                     }
                     .padding(.horizontal, 40)
                     
-                    // My Recipes Section
                     myRecipesSection
                         .padding(.horizontal)
                 }
@@ -47,8 +46,15 @@ struct ProfileView: View {
             }
             .navigationTitle("My Profile")
             .navigationBarTitleDisplayMode(.large)
+            .refreshable { // Современный pull-to-refresh
+                viewModel.loadMyRecipes()
+             }
         }
-        .sheet(isPresented: $viewModel.showImagePicker) { ProfileImagePicker(image: $viewModel.profileImage)
+        .sheet(isPresented: viewModel.showImagePicker) {
+            ProfileImagePicker(image: Binding(
+                            get: { viewModel.profileImage },
+                            set: { viewModel.updateProfileImage($0) }
+                        ))
         }
         .onAppear {
             // Обновляем данные при появлении экрана (при переключении между вкладками в TabView)
@@ -60,8 +66,10 @@ struct ProfileView: View {
         HStack(alignment: .top, spacing: 20) {
             ProfileImageView(image: viewModel.profileImage)
                 .onTapGesture {
-                    viewModel.showImagePicker = true
+                    viewModel.showImagePicker.wrappedValue = true
                 }
+                .accessibilityLabel("Profile photo")
+                .accessibilityHint("Tap to change photo")
             
             Spacer()
         }
@@ -70,41 +78,26 @@ struct ProfileView: View {
     private var myRecipesSection: some View {
         VStack(alignment: .leading, spacing: 16) {
             if viewModel.isLoading {
-                HStack {
-                    Spacer()
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                    Spacer()
-                }
-                .frame(minHeight: 200)
+                LoadingView()
             } else if viewModel.hasRecipes {
-                // Вертикальный список рецептов
                 RecipeListView(
                     recipes: viewModel.myRecipes,
                     onDelete: viewModel.deleteRecipe
                 )
             } else {
-                emptyStateView
+                EmptyRecipesView()
             }
         }
     }
-    
-    private var emptyStateView: some View {
-        VStack(spacing: 16) {
-            Image(systemName: "book.closed")
-                .font(.system(size: 60))
-                .foregroundColor(.gray)
-            
-            Text("No recipes yet")
-                .font(.custom("Poppins-Medium", size: 18))
-                .foregroundColor(.secondary)
-            
-            Text("Your created recipes will appear here")
-                .font(.custom("Poppins-Regular", size: 14))
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-        }
-        .frame(maxWidth: .infinity, minHeight: 200)
-        .padding()
-    }
 }
+
+// MARK: - Previews (iOS 17+ style)
+#if DEBUG && swift(>=5.9)
+#Preview("Profile with recipes") {
+    ProfileView()
+}
+
+#Preview("Profile empty") {
+    ProfileView(viewModel: ProfileViewModel())
+}
+#endif
