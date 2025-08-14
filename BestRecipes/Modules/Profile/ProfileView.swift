@@ -5,8 +5,6 @@
 //  Created by Aleksandr Meshchenko on 12.08.25.
 //
 
-
-// ProfileView.swift
 import SwiftUI
 
 struct ProfileView: View {
@@ -25,37 +23,40 @@ struct ProfileView: View {
     }
     
     var body: some View {
-        // Title
-        Text("My profile")
-            .font(.custom("Poppins-SemiBold", size: 28))
-        
-        VStack(alignment: .leading, spacing: 40) {
-            // Profile Header
-            profileHeader
-            
-            HStack(alignment: .top, spacing: 20) {
-                Text("My Recipes")
-                    .font(.custom("Poppins-SemiBold", size: 28))
-                Spacer()
+        NavigationView {
+            ScrollView(showsIndicators: false) {
+                VStack(alignment: .leading, spacing: 20) {
+                    // Profile Header
+                    profileHeader
+                        .padding(.horizontal, 40)
+                        .padding(.top, 20)
+                    
+                    // My Recipes Title
+                    HStack(alignment: .top, spacing: 20) {
+                        Text("My Recipes")
+                            .font(.custom("Poppins-SemiBold", size: 28))
+                        Spacer()
+                    }
+                    .padding(.horizontal, 40)
+                    
+                    // My Recipes Section
+                    myRecipesSection
+                        .padding(.horizontal)
+                }
+                .padding(.vertical)
             }
-        }
-        .padding(.horizontal, 40)
-        .padding(.top)
-        
-        ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
-                
-                // My Recipes Section
-                myRecipesSection
-                    .padding(.horizontal)
-            }
-            .padding(.vertical)
+            .navigationTitle("My Profile")
+            .navigationBarTitleDisplayMode(.large)
         }
         .sheet(isPresented: viewModel.showImagePicker) { // Передаем Binding напрямую
             ProfileImagePicker(image: Binding(
                 get: { viewModel.profileImage },
                 set: { viewModel.updateProfileImage($0) }
             ))
+        }
+        .onAppear {
+            // Обновляем данные при появлении экрана (при переключении между вкладками в TabView)
+            viewModel.loadMyRecipes()
         }
     }
     
@@ -73,8 +74,13 @@ struct ProfileView: View {
     private var myRecipesSection: some View {
         VStack(alignment: .leading, spacing: 16) {
             if viewModel.isLoading {
-                ProgressView()
-                    .frame(maxWidth: .infinity, minHeight: 200)
+                HStack {
+                    Spacer()
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                    Spacer()
+                }
+                .frame(minHeight: 200)
             } else if viewModel.hasRecipes {
                 // Вертикальный список рецептов
                 RecipeListView(
@@ -106,30 +112,3 @@ struct ProfileView: View {
         .padding()
     }
 }
-
-#if DEBUG
-struct ProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            ProfileView(viewModel: createViewModelWithFixtures())
-                .previewDisplayName("With Recipes")
-            
-//            ProfileView(viewModel: createEmptyViewModel())
-//                .previewDisplayName("Empty State")
-        }
-    }
-    
-    private static func createViewModelWithFixtures() -> ProfileViewModel {
-        let viewModel = ProfileViewModel()
-        let testRecipes = Fixtures.loadRecipes(named: "recipes_pasta")
-        viewModel.setTestData(recipes: testRecipes)
-        return viewModel
-    }
-    
-//    private static func createEmptyViewModel() -> ProfileViewModel {
-//        let viewModel = ProfileViewModel()
-//        viewModel.setTestData(recipes: [])
-//        return viewModel
-//    }
-}
-#endif

@@ -5,7 +5,6 @@
 //  Created by Aleksandr Meshchenko on 12.08.25.
 //
 
-
 import UIKit
 
 /// Состояние модуля Profile

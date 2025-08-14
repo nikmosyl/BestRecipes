@@ -17,6 +17,7 @@ final class ProfileViewModel: ObservableObject {
     // MARK: - Private Properties
     private let dataManager = DataManager.shared
     private var cancellables = Set<AnyCancellable>()
+    private var hasLoadedInitially = false
     
     // MARK: - Constants
     private enum Constants {
@@ -27,8 +28,9 @@ final class ProfileViewModel: ObservableObject {
     
     // MARK: - Initialization
     init() {
-        loadMyRecipes()
+        // Загружаем только изображение профиля
         state.profileImage = loadStoredImage()
+        // Рецепты загрузятся через onAppear
     }
     
     // MARK: - Computed Properties
@@ -66,6 +68,9 @@ final class ProfileViewModel: ObservableObject {
     
     // MARK: - Public Methods
     func loadMyRecipes() {
+        // Избегаем множественных одновременных загрузок
+        guard !state.isLoading else { return }
+        
         state.isLoading = true
         state.errorMessage = nil
         
@@ -75,6 +80,7 @@ final class ProfileViewModel: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.loadingDelay) { [weak self] in
             self?.state.myRecipes = recipes
             self?.state.isLoading = false
+            self?.hasLoadedInitially = true
         }
     }
     
@@ -113,13 +119,6 @@ final class ProfileViewModel: ObservableObject {
         }
         UserDefaults.standard.set(data, forKey: Constants.profileImageKey)
     }
-
-    #if DEBUG
-    func setTestData(recipes: [Recipe]) {
-        state.myRecipes = recipes
-        state.isLoading = false
-    }
-    #endif
 }
 
 // Usecase:
