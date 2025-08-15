@@ -43,7 +43,9 @@ struct CreateRecipeView: View {
             }
         }
         .sheet(isPresented: $viewModel.showServesPicker) {
-            EmptyView()
+            ServesPickerSheetView()
+                .environmentObject(viewModel)
+                .presentationDetents([.height(280)])
         }
     }
 }
