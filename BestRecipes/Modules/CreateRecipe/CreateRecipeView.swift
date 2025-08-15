@@ -21,7 +21,10 @@ struct CreateRecipeView: View {
             ServesCountView()
             
             CookTimeView()
+            
+            IngredientsBlockView()
         }
+        .padding()
         .environmentObject(viewModel)
         .navigationTitle("Create Recipe")
         .navigationBarTitleDisplayMode(.inline)

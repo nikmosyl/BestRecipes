@@ -12,7 +12,7 @@ struct ServesCountView: View {
     
     var body: some View {
         HStack(spacing: 16) {
-            Image(systemName: "person.2.fill")
+            Image(systemName: "person.fill")
                 .padding(8)
                 .background {
                     RoundedRectangle(cornerRadius: 12)
@@ -40,7 +40,6 @@ struct ServesCountView: View {
             RoundedRectangle(cornerRadius: 12)
                 .foregroundStyle(.gray.opacity(0.1))
         }
-        .padding()
     }
 }
 

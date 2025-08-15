@@ -31,12 +31,11 @@ struct RecipeImageView: View {
                     .onChange(of: viewModel.selectedPhotoItem) { newValue in
                         viewModel.loadImage()
                     }
-                    .padding()
             } else {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(style: StrokeStyle(lineWidth: 1, dash: [6]))
-                        .foregroundStyle(.gray.opacity(0.35))
+                        .foregroundStyle(.gray)
                         .frame(height: 200)
                     
                     VStack(spacing: 8) {
@@ -53,7 +52,6 @@ struct RecipeImageView: View {
                             .progressViewStyle(.circular)
                     }
                 }
-                .padding()
                 .overlay {
                     PhotosPicker(selection: $viewModel.selectedPhotoItem, matching: .images) {
                         Color.clear

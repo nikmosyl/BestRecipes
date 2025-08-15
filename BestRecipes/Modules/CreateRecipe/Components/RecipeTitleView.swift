@@ -20,7 +20,6 @@ struct RecipeTitleView: View {
                     .stroke(style: StrokeStyle(lineWidth: 1))
                     .foregroundStyle(.red)
             }
-            .padding(.horizontal)
     }
 }
 

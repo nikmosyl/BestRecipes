@@ -40,7 +40,6 @@ struct CookTimeView: View {
             RoundedRectangle(cornerRadius: 12)
                 .foregroundStyle(.gray.opacity(0.1))
         }
-        .padding(.horizontal)
     }
 }
 
