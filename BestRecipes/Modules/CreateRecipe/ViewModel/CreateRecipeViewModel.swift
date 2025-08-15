@@ -14,7 +14,7 @@ final class CreateRecipeViewModel: ObservableObject {
     @Published var author: String = ""
     
     @Published var showCookTimePicker: Bool = false
-    @Published var readyInMinutes: Int = 0
+    @Published var readyInMinutes: Int = 10
     
     @Published var showServesPicker: Bool = false
     @Published var servings: Int = 0
