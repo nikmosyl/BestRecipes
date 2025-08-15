@@ -33,6 +33,7 @@ struct CreateRecipeView: View {
             CreateRecipeButtonView()
         }
         .environmentObject(viewModel)
+        .hideKeyboardOnTap()
         .navigationTitle("Create Recipe")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
