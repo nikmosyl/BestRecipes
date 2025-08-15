@@ -62,28 +62,6 @@ struct RecipeListView: View {
     }
 }
 
-// Альтернативный вариант с List (если нужен swipe-to-delete)
-struct RecipeListViewAlternative: View {
-    let recipes: [Recipe]
-    let onDelete: (Recipe) -> Void
-    
-    var body: some View {
-        List {
-            ForEach(recipes, id: \.id) { recipe in
-                RecipeRowView(recipe: recipe)
-                    .listRowInsets(EdgeInsets())
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
-            }
-            .onDelete { indexSet in
-                indexSet.map { recipes[$0] }.forEach(onDelete)
-            }
-        }
-        .listStyle(.plain)
-        .scrollContentBackground(.hidden)
-    }
-}
-
 #if DEBUG
 struct RecipeListView_Previews: PreviewProvider {
     static var previews: some View {

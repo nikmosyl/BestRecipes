@@ -42,6 +42,8 @@ struct ProfileView: View {
             .navigationDestination(isPresented: $showRecipeDetail) {
                 // TODO: Добавить сюда RecipeDetailView когда он появится
                 if let recipe = selectedRecipe {
+                    // Добавить сюда:
+                    // RecipeDetailModule.makeRecipeDetailView(recipe: recipe)
                     RecipeDetailPlaceholder(recipe: recipe)
                 }
             }
