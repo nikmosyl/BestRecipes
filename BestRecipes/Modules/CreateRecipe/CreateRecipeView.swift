@@ -24,6 +24,7 @@ struct CreateRecipeView: View {
                             PhotosPicker(selection: $viewModel.selectedPhotoItem, matching: .images) {
                                 Image(systemName: "camera.on.rectangle")
                                     .padding(8)
+                                    .foregroundStyle(.white)
                                     .background(.ultraThinMaterial, in: Circle())
                             }
                             .padding(10)
@@ -31,8 +32,37 @@ struct CreateRecipeView: View {
                         .onChange(of: viewModel.selectedPhotoItem) { newValue in
                             viewModel.loadImage()
                         }
+                        .padding()
                 } else {
-
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(style: StrokeStyle(lineWidth: 1, dash: [6]))
+                            .foregroundStyle(.gray.opacity(0.35))
+                            .frame(height: 200)
+                        
+                        VStack(spacing: 8) {
+                            Image(systemName: "photo.on.rectangle.angled")
+                                .font(.system(size: 28, weight: .semibold))
+                            
+                            Text("Add recipe photo")
+                                .font(.subheadline)
+                        }
+                        .foregroundStyle(.gray)
+                        
+                        if viewModel.isLoadingImage {
+                            ProgressView()
+                                .progressViewStyle(.circular)
+                        }
+                    }
+                    .padding()
+                    .overlay {
+                        PhotosPicker(selection: $viewModel.selectedPhotoItem, matching: .images) {
+                            Color.clear
+                        }
+                    }
+                    .onChange(of: viewModel.selectedPhotoItem) { newValue in
+                        viewModel.loadImage()
+                    }
                 }
             }
         }

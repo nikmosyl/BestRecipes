@@ -26,13 +26,16 @@ final class CreateRecipeViewModel: ObservableObject {
     @Published var isLoadingImage: Bool = false
     
     func loadImage() {
+        print("loadImage() was called")
         guard let selectedPhotoItem else { return }
+        print("First guard was passed")
         
         isLoadingImage = true
         
         Task {
             if let data = try? await selectedPhotoItem.loadTransferable(type: Data.self) {
                 recipeImage = UIImage(data: data)
+                print("recipeImage is ready")
             }
             isLoadingImage = false
         }
