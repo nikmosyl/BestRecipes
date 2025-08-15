@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel()
+    @State private var selectedRecipe: Recipe? // Для навигации
+    @State private var showRecipeDetail = false // Флаг показа деталей
     
     var body: some View {
         NavigationStack {
@@ -34,9 +36,15 @@ struct ProfileView: View {
             }
             .navigationTitle("My Profile")
             .navigationBarTitleDisplayMode(.automatic)
-            .refreshable { // Современный pull-to-refresh
+            .refreshable { // pull-to-refresh
                 viewModel.loadMyRecipes()
              }
+            .navigationDestination(isPresented: $showRecipeDetail) {
+                // TODO: Добавить сюда RecipeDetailView когда он появится
+                if let recipe = selectedRecipe {
+                    RecipeDetailPlaceholder(recipe: recipe)
+                }
+            }
         }
         .sheet(isPresented: viewModel.showImagePicker) {
             ProfileImagePicker(image: Binding(
@@ -70,12 +78,61 @@ struct ProfileView: View {
             } else if viewModel.hasRecipes {
                 RecipeListView(
                     recipes: viewModel.myRecipes,
-                    onDelete: viewModel.deleteRecipe
+                    onDelete: viewModel.deleteRecipe,
+                    onSelect: handleRecipeSelection
                 )
             } else {
                 EmptyRecipesView()
             }
         }
+    }
+    
+    // MARK: - Navigation
+    
+    private func handleRecipeSelection(_ recipe: Recipe) {
+        selectedRecipe = recipe
+        showRecipeDetail = true
+        
+        // Альтернативный вариант - можно просто логировать пока нет детального экрана
+        // print("Selected recipe: \(recipe.title ?? "Unknown")")
+    }
+}
+
+// MARK: - Temporary Placeholder
+
+/// Временный placeholder для экрана деталей рецепта
+/// Замените на настоящий RecipeDetailView когда он будет готов
+private struct RecipeDetailPlaceholder: View {
+    let recipe: Recipe
+    
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                Text(recipe.title ?? "Recipe Details")
+                    .font(.largeTitle)
+                    .padding(.horizontal)
+                
+                if let imageURL = recipe.imageURL {
+                    AsyncImage(url: URL(string: imageURL)) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    } placeholder: {
+                        Rectangle()
+                            .foregroundColor(.gray.opacity(0.2))
+                            .frame(height: 250)
+                    }
+                }
+                
+                Text("Recipe details will be here")
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal)
+                
+                Spacer()
+            }
+        }
+        .navigationTitle("Recipe Details")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
