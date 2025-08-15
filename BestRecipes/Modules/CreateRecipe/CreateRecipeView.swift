@@ -16,15 +16,7 @@ struct CreateRecipeView: View {
         ScrollView {
             RecipeImageView()
             
-            TextField("Title", text: $viewModel.title)
-                .padding(.vertical, 8)
-                .padding(.horizontal)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(style: StrokeStyle(lineWidth: 1))
-                        .foregroundStyle(.red)
-                }
-                .padding(.horizontal)
+            RecipeTitleView()
         
             ServesCountView()
             
@@ -46,6 +38,11 @@ struct CreateRecipeView: View {
         }
         .sheet(isPresented: $viewModel.showServesPicker) {
             ServesPickerSheetView()
+                .environmentObject(viewModel)
+                .presentationDetents([.height(280)])
+        }
+        .sheet(isPresented: $viewModel.showCookTimePicker) {
+            TimePickerSheetView()
                 .environmentObject(viewModel)
                 .presentationDetents([.height(280)])
         }
