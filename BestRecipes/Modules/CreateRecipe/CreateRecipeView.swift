@@ -13,16 +13,23 @@ struct CreateRecipeView: View {
     @StateObject private var viewModel = CreateRecipeViewModel()
     
     var body: some View {
-        ScrollView {
-            RecipeImageView()
+        VStack {
+            ScrollView {
+                VStack(spacing: 16) {
+                    RecipeImageView()
+                    
+                    RecipeTitleView()
+                    
+                    ServesCountView()
+                    
+                    CookTimeView()
+                    
+                    IngredientsBlockView()
+                }
+            }
+            .scrollIndicators(.hidden)
             
-            RecipeTitleView()
-        
-            ServesCountView()
-            
-            CookTimeView()
-            
-            IngredientsBlockView()
+            CreateRecipeButtonView()
         }
         .padding()
         .environmentObject(viewModel)
