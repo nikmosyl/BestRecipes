@@ -13,6 +13,8 @@ final class CreateRecipeViewModel: ObservableObject {
     @Published var title: String = ""
     @Published var author: String = ""
     @Published var readyInMinutes: Int? = nil
+    
+    @Published var showServesPicker: Bool = false
     @Published var servings: Int? = nil
     @Published var dishTypes: [String] = []
     
