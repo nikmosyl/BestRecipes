@@ -25,37 +25,8 @@ struct CreateRecipeView: View {
                         .foregroundStyle(.red)
                 }
                 .padding(.horizontal)
-            
-            HStack(spacing: 16) {
-                Image(systemName: "person.2.fill")
-                    .padding(8)
-                    .background {
-                        RoundedRectangle(cornerRadius: 12)
-                            .foregroundStyle(.white)
-                    }
-                
-                Text("Serves")
-                    .font(.system(size: 16, weight: .semibold))
-                
-                Spacer()
-                
-                Text("\(viewModel.servings ?? 0)")
-                    .foregroundStyle(.gray)
-                
-                Button {
-                    viewModel.showServesPicker.toggle()
-                } label: {
-                    Image(systemName: "arrow.right")
-                        .foregroundStyle(.black)
-                }
-            }
-            .padding(.vertical, 12)
-            .padding(.horizontal)
-            .background {
-                RoundedRectangle(cornerRadius: 12)
-                    .foregroundStyle(.gray.opacity(0.1))
-            }
-            .padding()
+        
+            ServesCountView()
         }
         .environmentObject(viewModel)
         .navigationTitle("Create Recipe")
