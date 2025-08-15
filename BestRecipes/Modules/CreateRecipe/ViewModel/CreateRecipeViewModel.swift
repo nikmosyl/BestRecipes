@@ -10,8 +10,9 @@ import PhotosUI
 
 @MainActor
 final class CreateRecipeViewModel: ObservableObject {
+    @AppStorage("savedRecipes") private var savedRecipesData: Data = Data()
+    
     @Published var title: String = ""
-    @Published var author: String = ""
     
     @Published var showCookTimePicker: Bool = false
     @Published var readyInMinutes: Int = 20
@@ -39,6 +40,38 @@ final class CreateRecipeViewModel: ObservableObject {
                 print("recipeImage is ready")
             }
             isLoadingImage = false
+        }
+    }
+    
+    func saveRecipe() {
+        var imageBase64: String? = nil
+        if let recipeImage, let imageData = recipeImage.jpegData(compressionQuality: 0.8) {
+            imageBase64 = imageData.base64EncodedString()
+        }
+
+        let newRecipe = Recipe(
+            id: Int.random(in: 1...10_000),
+            title: title,
+            instruction: "",
+            instructions: nil,
+            author: "Mine",
+            spoonacularScore: nil,
+            readyInMinutes: readyInMinutes,
+            imageURL: imageBase64,
+            extendedIngredients: ingredients,
+            dishTypes: [],
+            servings: servings
+        )
+
+        var existingRecipes: [Recipe] = []
+        if let decoded = try? JSONDecoder().decode([Recipe].self, from: savedRecipesData) {
+            existingRecipes = decoded
+        }
+
+        existingRecipes.append(newRecipe)
+
+        if let encoded = try? JSONEncoder().encode(existingRecipes) {
+            savedRecipesData = encoded
         }
     }
 }

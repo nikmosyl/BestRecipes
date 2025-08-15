@@ -13,6 +13,7 @@ struct CreateRecipeButtonView: View {
     
     var body: some View {
         Button {
+            viewModel.saveRecipe()
             dismiss()
         } label: {
             Text("Create Recipe")
@@ -25,6 +26,7 @@ struct CreateRecipeButtonView: View {
                         .foregroundStyle(.red)
                 }
         }
+        .padding()
     }
 }
 

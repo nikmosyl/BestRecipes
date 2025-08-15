@@ -26,12 +26,12 @@ struct CreateRecipeView: View {
                     
                     IngredientsBlockView()
                 }
+                .padding()
             }
             .scrollIndicators(.hidden)
             
             CreateRecipeButtonView()
         }
-        .padding()
         .environmentObject(viewModel)
         .navigationTitle("Create Recipe")
         .navigationBarTitleDisplayMode(.inline)
