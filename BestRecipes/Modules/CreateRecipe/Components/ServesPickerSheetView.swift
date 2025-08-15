@@ -26,10 +26,19 @@ struct ServesPickerSheetView: View {
             .pickerStyle(.wheel)
             .frame(height: 150)
             
-            Button("Done") {
+            Button {
                 viewModel.showServesPicker.toggle()
+            } label: {
+                Text("Done")
+                    .fontWeight(.semibold)
+                    .padding(.vertical)
+                    .padding(.horizontal, 32)
+                    .foregroundStyle(.white)
+                    .background {
+                        RoundedRectangle(cornerRadius: 12)
+                            .foregroundStyle(.cyan)
+                    }
             }
-            .buttonStyle(.borderedProminent)
         }
         .padding(.horizontal)
     }

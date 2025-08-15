@@ -81,7 +81,7 @@ private struct IngredientRowView: View {
 
                     if quantity.wrappedValue == 0 && !isQuantityFocused {
                         Text("Quantity")
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(.gray.opacity(0.5))
                             .padding(.leading, 6)
                             .allowsHitTesting(false)
                     }
