@@ -14,6 +14,16 @@ struct CreateRecipeView: View {
     var body: some View {
         ScrollView {
             RecipeImageView()
+            
+            TextField("Title", text: $viewModel.title)
+                .padding(.vertical, 8)
+                .padding(.horizontal)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(style: StrokeStyle(lineWidth: 1))
+                        .foregroundStyle(.red)
+                }
+                .padding(.horizontal)
         }
         .environmentObject(viewModel)
         .navigationTitle("Create Recipe")
