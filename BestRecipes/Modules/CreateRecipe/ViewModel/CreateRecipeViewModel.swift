@@ -12,11 +12,12 @@ import PhotosUI
 final class CreateRecipeViewModel: ObservableObject {
     @Published var title: String = ""
     @Published var author: String = ""
-    @Published var readyInMinutes: Int? = nil
+    
+    @Published var showCookTimePicker: Bool = false
+    @Published var readyInMinutes: Int = 0
     
     @Published var showServesPicker: Bool = false
-    @Published var servings: Int = 1
-    @Published var dishTypes: [String] = []
+    @Published var servings: Int = 0
     
     @Published var instruction: String = ""
     @Published var instructions: [Instruction] = []

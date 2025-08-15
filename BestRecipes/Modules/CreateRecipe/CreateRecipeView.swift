@@ -27,6 +27,8 @@ struct CreateRecipeView: View {
                 .padding(.horizontal)
         
             ServesCountView()
+            
+            CookTimeView()
         }
         .environmentObject(viewModel)
         .navigationTitle("Create Recipe")

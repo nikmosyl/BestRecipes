@@ -1,5 +1,5 @@
 //
-//  ServesCountView.swift
+//  CookTimeView.swift
 //  BestRecipes
 //
 //  Created by Иван Семикин on 15/08/2025.
@@ -7,28 +7,28 @@
 
 import SwiftUI
 
-struct ServesCountView: View {
+struct CookTimeView: View {
     @EnvironmentObject private var viewModel: CreateRecipeViewModel
     
     var body: some View {
         HStack(spacing: 16) {
-            Image(systemName: "person.2.fill")
+            Image(systemName: "clock.fill")
                 .padding(8)
                 .background {
                     RoundedRectangle(cornerRadius: 12)
                         .foregroundStyle(.white)
                 }
             
-            Text("Serves")
+            Text("Cook Time")
                 .font(.system(size: 16, weight: .semibold))
             
             Spacer()
             
-            Text("\(viewModel.servings)")
+            Text("\(viewModel.readyInMinutes) min")
                 .foregroundStyle(.gray)
             
             Button {
-                viewModel.showServesPicker.toggle()
+                viewModel.showCookTimePicker.toggle()
             } label: {
                 Image(systemName: "arrow.right")
                     .foregroundStyle(.black)
@@ -40,11 +40,11 @@ struct ServesCountView: View {
             RoundedRectangle(cornerRadius: 12)
                 .foregroundStyle(.gray.opacity(0.1))
         }
-        .padding()
+        .padding(.horizontal)
     }
 }
 
 #Preview {
-    ServesCountView()
+    CookTimeView()
         .environmentObject(CreateRecipeViewModel())
 }
