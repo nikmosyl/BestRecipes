@@ -20,11 +20,12 @@ struct ProfileView: View {
                     profileHeader
                         .padding(.horizontal, 40)
                         .padding(.top, 20)
+                        .padding(.bottom, 40)
                     
                     // My Recipes Title
                     HStack(alignment: .top, spacing: 20) {
-                        Text("My Recipes")
-                            .font(.custom("Poppins-SemiBold", size: 28))
+                        Text("My recipes")
+                            .font(.custom("Poppins-SemiBold", size: 24))
                         Spacer()
                     }
                     .padding(.horizontal, 40)
@@ -34,8 +35,14 @@ struct ProfileView: View {
                 }
                 .padding(.vertical)
             }
-            .navigationTitle("My Profile")
-            .navigationBarTitleDisplayMode(.automatic)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("My profile")
+                        .font(.custom("Poppins-SemiBold", size: 24))
+                        .foregroundColor(.primary)
+                }
+            }
             .refreshable { // pull-to-refresh
                 viewModel.loadMyRecipes()
              }
@@ -95,46 +102,8 @@ struct ProfileView: View {
         selectedRecipe = recipe
         showRecipeDetail = true
         
-        // Альтернативный вариант - можно просто логировать пока нет детального экрана
+        // логировать пока нет детального экрана
         // print("Selected recipe: \(recipe.title ?? "Unknown")")
-    }
-}
-
-// MARK: - Temporary Placeholder
-
-/// Временный placeholder для экрана деталей рецепта
-/// Замените на настоящий RecipeDetailView когда он будет готов
-private struct RecipeDetailPlaceholder: View {
-    let recipe: Recipe
-    
-    var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                Text(recipe.title ?? "Recipe Details")
-                    .font(.largeTitle)
-                    .padding(.horizontal)
-                
-                if let imageURL = recipe.imageURL {
-                    AsyncImage(url: URL(string: imageURL)) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                    } placeholder: {
-                        Rectangle()
-                            .foregroundColor(.gray.opacity(0.2))
-                            .frame(height: 250)
-                    }
-                }
-                
-                Text("Recipe details will be here")
-                    .foregroundColor(.secondary)
-                    .padding(.horizontal)
-                
-                Spacer()
-            }
-        }
-        .navigationTitle("Recipe Details")
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

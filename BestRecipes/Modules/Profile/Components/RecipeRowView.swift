@@ -40,8 +40,13 @@ struct RecipeRowView: View {
                 
                 // Градиент внизу
                 LinearGradient(
-                    colors: [.clear, Color.black.opacity(0.2)],
-                    startPoint: .center, endPoint: .bottom
+                    colors: [
+                        Color.black.opacity(0),
+                        Color.black.opacity(0.2),
+                        Color.black.opacity(0.5)
+                    ],
+                    startPoint: .top,
+                    endPoint: .bottom
                 )
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 

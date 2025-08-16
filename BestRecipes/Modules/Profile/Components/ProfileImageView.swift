@@ -31,10 +31,15 @@ struct ProfileImageView: View {
         .overlay(
             Image(systemName: "camera.fill")
                 .font(.system(size: 16))
-                .foregroundColor(.white)
+                .foregroundColor(.white)          // цвет иконки
+                .colorInvert()                    // инверсия
                 .padding(6)
-                .background(Color.blue)
+                .background(Color.white)           // фон круга
                 .clipShape(Circle())
+                .overlay(                          // рамка вокруг синего круга
+                    Circle()
+                        .stroke(Color.gray, lineWidth: 1)
+                )
                 .offset(x: 35, y: 35)
         )
     }
