@@ -50,7 +50,7 @@ struct RecipeItem: View {
                                 DataManager.shared.deleteRecipe(recipe, from: .favorites)
                             }
                             isBookmarked.toggle()
-                        }, isBookmarked: $isBookmarked)
+                        }, isBookmarked: isBookmarked)
                     }
                     Spacer()
                 }

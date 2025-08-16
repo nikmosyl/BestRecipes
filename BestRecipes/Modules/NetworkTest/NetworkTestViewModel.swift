@@ -15,7 +15,7 @@ final class NetworkTestViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var isLoading = false
     //saved array "Bookmarked"
-    @Published var bookmarkedRecipes: [Recipe] = []
+    var bookmarkedRecipes: [Recipe] = []
     
     func loadRecipes(query: String = "pasta") async {
         isLoading = true

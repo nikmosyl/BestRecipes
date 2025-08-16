@@ -99,7 +99,7 @@ final class DataManager {
     
     private var imageCache: [String: Data] = [:]
     private var recipeCache: [String: [Recipe]] = [:]
-    private var apiKeyIndex = 0
+    private var apiKeyIndex = 2
     
     private init() {}
     
