@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BookmarkButton: View {
     var action: () -> Void
-    @Binding var isBookmarked: Bool
+    var isBookmarked: Bool
     var body: some View {
         Button {
             action()
@@ -30,5 +30,5 @@ struct BookmarkButton: View {
 #Preview {
     BookmarkButton(action: {
         print("--> bookmark button tapped")
-    }, isBookmarked: .constant(true))
+    }, isBookmarked: true)
 }
