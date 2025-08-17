@@ -10,17 +10,33 @@ import SwiftUI
 enum TabItem: CaseIterable {
     case home
     case bookmark
-    case plus
+    case add
     case notifications
     case profile
     
     var icon: String {
         switch self {
-        case .home: return "house"
-        case .bookmark: return "bookmark"
-        case .plus: return "plus"
-        case .notifications: return "bell"
-        case .profile: return "person"
+        case .home: return "Home"
+        case .bookmark: return "Bookmark"
+        case .add: return "plus"
+        case .notifications: return "Notific"
+        case .profile: return "Profile"
+        }
+    }
+    
+    @ViewBuilder
+    var view: some View {
+        switch self {
+        case .home:
+            HomeView()
+        case .bookmark:
+            BookmarkView()
+        case .add:
+            AddView()
+        case .notifications:
+            NotificationsView()
+        case .profile:
+            ProfileView()
         }
     }
 }

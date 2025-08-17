@@ -16,6 +16,7 @@ struct CustomTabBarView: View {
     private let svgH: CGFloat = 115
 
     private let gap: CGFloat = 5
+    private let edgePadding: CGFloat = 20
 
     var body: some View {
         let sy = barHeight / svgH
@@ -34,43 +35,27 @@ struct CustomTabBarView: View {
                                 .stroke(.black.opacity(0.01), lineWidth: 0.1)
                         )
                         .shadow(color: .black.opacity(0.05), radius: 4, y: -2)
-
+                    
                     HStack {
-                        Button { viewModel.select(tab: .home) } label: {
-                            Image(systemName: "house")
-                                .font(.system(size: 24))
-                                .frame(width: 32, height: 30)
-                                .foregroundStyle(viewModel.selectedTab == .home ? .red : .gray)
-                        }
-                        Spacer()
-
-                        Button { viewModel.select(tab: .bookmark) } label: {
-                            Image(systemName: "bookmark")
-                                .font(.system(size: 24))
-                                .frame(width: 96, height: 30)
-                                .foregroundStyle(viewModel.selectedTab == .bookmark ? .red : .gray)
+                        HStack(spacing: 50) {
+                            tabButton(.home)
+                                .padding(.leading, edgePadding)
+                            tabButton(.bookmark)
                         }
                         
-                        Spacer().frame(width: buttonSize + 24)
-
-                        Button { viewModel.select(tab: .notifications) } label: {
-                            Image(systemName: "bell")
-                                .font(.system(size: 24))
-                                .frame(width: 96, height: 30)
-                                .foregroundStyle(viewModel.selectedTab == .notifications ? .red : .gray)
-                        }
-                        Spacer()
-
-                        Button { viewModel.select(tab: .profile) } label: {
-                            Image(systemName: "person")
-                                .font(.system(size: 24))
-                                .frame(width: 32, height: 30)
-                                .foregroundStyle(viewModel.selectedTab == .profile ? .red : .gray)
+                        Spacer(minLength: buttonSize + 40)
+                        
+                        HStack(spacing: 50) {
+                            tabButton(.notifications)
+                            tabButton(.profile)
+                                .padding(.trailing, edgePadding)
                         }
                     }
                     .padding(.horizontal, 28)
-                    
-                    Button { viewModel.centralAction() } label: {
+
+                    Button {
+                        viewModel.select(tab: .add)
+                    } label: {
                         Image(systemName: "plus")
                             .font(.system(size: 18, weight: .bold))
                             .foregroundStyle(.black)
@@ -83,7 +68,19 @@ struct CustomTabBarView: View {
                 }
             }
         }
+        .edgesIgnoringSafeArea(.bottom)
     }
+    
+    private func tabButton(_ tab: TabItem) -> some View {
+           Button {
+               viewModel.selectedTab = tab
+           } label: {
+               Image(tab.icon)
+                   .renderingMode(.template)
+                   .font(.system(size: 25))
+                   .foregroundColor(viewModel.selectedTab == tab ? .red : .gray)
+           }
+       }
 }
 
 #Preview {

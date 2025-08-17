@@ -13,8 +13,4 @@ final class TabBarViewModel: ObservableObject {
     func select(tab: TabItem) {
         selectedTab = tab
     }
-    
-    func centralAction() {
-        print("Центральная кнопка нажата")
-    }
 }
