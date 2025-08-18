@@ -13,46 +13,43 @@ struct ProfileView: View {
     @State private var showRecipeDetail = false // Флаг показа деталей
     
     var body: some View {
-        NavigationStack {
-            ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 20) {
-                    // Profile Header
-                    profileHeader
-                        .padding(.horizontal, 40)
-                        .padding(.top, 20)
-                        .padding(.bottom, 40)
-                    
-                    // My Recipes Title
-                    HStack(alignment: .top, spacing: 20) {
-                        Text("My recipes")
-                            .font(.custom("Poppins-SemiBold", size: 24))
-                        Spacer()
-                    }
+        ScrollView(showsIndicators: false) {
+            VStack(alignment: .leading, spacing: 20) {
+                // Profile Header
+                profileHeader
                     .padding(.horizontal, 40)
-                    
-                    myRecipesSection
-                        .padding(.horizontal)
-                }
-                .padding(.vertical)
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text("My profile")
+                    .padding(.top, 20)
+                    .padding(.bottom, 40)
+                
+                // My Recipes Title
+                HStack(alignment: .top, spacing: 20) {
+                    Text("My recipes")
                         .font(.custom("Poppins-SemiBold", size: 24))
-                        .foregroundColor(.primary)
+                    Spacer()
                 }
+                .padding(.horizontal, 40)
+                
+                myRecipesSection
+                    .padding(.horizontal)
             }
-            .refreshable { // pull-to-refresh
-                viewModel.loadMyRecipes()
+            .padding(.vertical)
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("My profile")
+                    .font(.custom("Poppins-SemiBold", size: 24))
+                    .foregroundColor(.primary)
             }
-            .navigationDestination(isPresented: $showRecipeDetail) {
-                // TODO: Добавить сюда RecipeDetailView когда он появится
-                if let recipe = selectedRecipe {
-                    // Добавить сюда:
-//                    RecipeDetailView(recipe: recipe)
-//                        .ingredientCheckbox(true)
-                }
+        }
+        .refreshable { // pull-to-refresh
+            viewModel.loadMyRecipes()
+        }
+        .navigationDestination(isPresented: $showRecipeDetail) {
+            // TODO: Добавить сюда RecipeDetailView когда он появится
+            if let recipe = selectedRecipe {
+                // Добавить сюда:
+                RecipeDetailView(recipe: recipe)
             }
         }
         .sheet(isPresented: viewModel.showImagePicker) {
