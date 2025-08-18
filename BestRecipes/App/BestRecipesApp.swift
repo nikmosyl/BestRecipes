@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct MyApp: App {
+struct BestRecipesApp: App {
     @State private var showOnboarding = true
     
     var body: some Scene {
