@@ -79,14 +79,21 @@ struct OnboardingView: View {
                             .tag(index)
                     }
                 }
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode:.never))
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 .overlay(alignment: .bottom) {
-                    VStack(spacing: 16) {
-                        // Условное отображение индикатора
-                        if viewModel.currentPage > 0 {
-                            PageIndicator(currentPage: $viewModel.currentPage, totalPages: viewModel.items.count)
+                    VStack(spacing: 24) {
+                        // Место для индикатора или кнопки
+                        if viewModel.currentPage == 0 {
+                            Spacer(minLength: 80) // Создаем пространство для кнопки
+                        } else {
+                            PageIndicator(
+                                currentPage: $viewModel.currentPage,
+                                totalPages: viewModel.items.count
+                            )
+                            .padding(.bottom, 16)
                         }
                         
+                        // Единственная кнопка навигации
                         Button(action: {
                             if viewModel.isLastPage {
                                 viewModel.completeOnboarding()
@@ -95,15 +102,18 @@ struct OnboardingView: View {
                                 viewModel.nextPage()
                             }
                         }) {
-                            Text(determineButtonTitle(for: viewModel.currentPage, totalPages: viewModel.items.count))
-                                .padding()
-                                .frame(width: 156, height: 56, alignment: .center)
-                                .background(Color.red)
-                                .foregroundColor(.white)
-                                .cornerRadius(8)
+                            Text(determineButtonTitle(
+                                for: viewModel.currentPage,
+                                totalPages: viewModel.items.count
+                            ))
+                            .padding()
+                            .frame(width: 156, height: 56)
+                            .background(Color.red)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
                         }
-                        .padding()
                         
+                        // Кнопка "Пропустить"
                         if viewModel.currentPage > 0 {
                             Button(action: {
                                 viewModel.completeOnboarding()
@@ -113,11 +123,12 @@ struct OnboardingView: View {
                                     .foregroundColor(Color.white)
                                     .font(.subheadline)
                             }
-                            .padding()
+                            .padding(20)
                         }
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal, 24)
+                    .padding(.vertical, 30)
                 }
                 .onAppear {
                     checkFirstLaunch()
