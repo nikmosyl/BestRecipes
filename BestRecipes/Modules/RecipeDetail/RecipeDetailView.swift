@@ -12,13 +12,11 @@ struct RecipeDetailView: View {
     @Environment(\.dismiss) private var dismiss
     
     // MARK: - Initialization
-    
     init(recipe: Recipe) {
         _viewModel = StateObject(wrappedValue: RecipeDetailViewModel(recipe: recipe))
     }
     
     // MARK: - Body
-    
     var body: some View {
         ZStack {
             if viewModel.isLoading {
@@ -45,40 +43,37 @@ struct RecipeDetailView: View {
     }
     
     // MARK: - Loading View
-        
-        private var loadingView: some View {
-            VStack(spacing: 20) {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: .orange))
-                    .scaleEffect(1.5)
-                
-                Text("Loading recipe...")
-                    .font(.custom("Poppins-Regular", size: 16))
-                    .foregroundColor(.secondary)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+    private var loadingView: some View {
+        VStack(spacing: 20) {
+            ProgressView()
+                .progressViewStyle(CircularProgressViewStyle(tint: .orange))
+                .scaleEffect(1.5)
+            
+            Text("Loading recipe...")
+                .font(.custom("Poppins-Regular", size: 16))
+                .foregroundColor(.secondary)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
     
     // MARK: - Recipe Content
-        
-        private var recipeContent: some View {
-            ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 24) {
-                    recipeCardSection
-                        .padding(.horizontal, 20)
-                    
-                    instructionsSection
-                        .padding(.horizontal, 20)
-                    
-                    ingredientsSection
-                        .padding(.horizontal, 20)
-                }
-                .padding(.vertical, 20)
+    private var recipeContent: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(alignment: .leading, spacing: 24) {
+                recipeCardSection
+                    .padding(.horizontal, 20)
+                
+                instructionsSection
+                    .padding(.horizontal, 20)
+                
+                ingredientsSection
+                    .padding(.horizontal, 20)
             }
+            .padding(.vertical, 20)
         }
+    }
     
     // MARK: - Recipe Card Section
-    
     private var recipeCardSection: some View {
         VStack(alignment: .leading, spacing: 16) {
             // Recipe title
@@ -135,7 +130,6 @@ struct RecipeDetailView: View {
     }
     
     // MARK: - Instructions Section
-    
     private var instructionsSection: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Instructions")
@@ -187,20 +181,18 @@ struct RecipeDetailView: View {
     }
     
     // MARK: - Helpers
-
     private func cleanedInstructionText() -> String? {
         guard let raw = viewModel.recipe.instruction?.trimmingCharacters(in: .whitespacesAndNewlines),
               !raw.isEmpty
         else { return nil }
-
+        
         // Удаляем HTML, если приезжает
         let plain = stripHTML(from: raw)
-
+        
         return plain
     }
     
     // MARK: - Ingredients Section
-    
     private var ingredientsSection: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
@@ -234,59 +226,14 @@ struct RecipeDetailView: View {
     }
     
     // MARK: - Helper Methods
-    
     private func stripHTML(from string: String) -> String {
         string.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
     }
 }
 
 // MARK: - Previews
-
-#if DEBUG
-import SwiftUI
-
-struct RecipeDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            RecipeDetailView(recipe: .previewSample)
-                .ingredientCheckbox(true) // чекбоксы нужно
-        }
+#Preview {
+    NavigationStack {
+        RecipeDetailView(recipe: .previewSample)
     }
 }
-
-private extension Recipe {
-    static let previewSample: Recipe = {
-        let steps = [
-            Step(number: 1, step: "Peel and dice yams."),
-            Step(number: 2, step: "Boil for 15 minutes until tender."),
-            Step(number: 3, step: "Mash with butter and season to taste.")
-        ]
-        let instruction = Instruction(steps: steps)
-
-        let ingredients: [Ingredient] = [
-            Ingredient(id: 11601, name: "yam", amount: 2.0, imageName: "sweet-potato.png"),
-            Ingredient(id: 1145,  name: "butter", amount: 0.05, imageName: "butter-sliced.jpg"),
-            Ingredient(id: 2047,  name: "salt", amount: 0.01, imageName: "salt.jpg")
-        ]
-        
-        let simpleInstruction = """
-                Tip: For a creamier texture, add 2 tbsp of warm milk and a pinch of nutmeg.
-                Serve immediately while hot.
-                """
-        
-        return Recipe(
-            id: 665504,
-            title: "Yam Cream with Ginko Nuts (Preview)",
-            instruction: simpleInstruction,
-            instructions: [instruction],
-            author: "Preview Kitchen",
-            spoonacularScore: 70.9,                 // rating = 3.5
-            readyInMinutes: 45,
-            imageURL: "https://img.spoonacular.com/recipes/665504-312x231.jpg",
-            extendedIngredients: ingredients,
-            dishTypes: ["side dish"],
-            servings: 4
-        )
-    }()
-}
-#endif

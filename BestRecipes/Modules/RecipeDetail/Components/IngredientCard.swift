@@ -9,7 +9,6 @@ import SwiftUI
 
 struct IngredientCard: View {
     let ingredient: Ingredient
-    @Environment(\.showIngredientCheckbox) private var showCheckbox
     @State private var isChecked = false
     
     var body: some View {
@@ -47,12 +46,9 @@ struct IngredientCard: View {
                 .font(.custom("Poppins-Regular", size: 14))
                 .foregroundColor(.secondary)
             
-            // чекбокс рендерим по флагу
-            if showCheckbox {
-                Image(systemName: isChecked ? "checkmark.circle.fill" : "circle")
-                    .font(.system(size: 24))
-                    .foregroundColor(isChecked ? .red : .gray.opacity(0.5))
-            }
+            Image(systemName: isChecked ? "checkmark.circle.fill" : "circle")
+                .font(.system(size: 24))
+                .foregroundColor(isChecked ? .red : .gray.opacity(0.5))
         }
         .padding(16)
         .background(Color.gray.opacity(0.2))
@@ -73,36 +69,29 @@ struct IngredientCard: View {
     }
 }
 
-#if DEBUG
-struct IngredientCard_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            IngredientCard(
-                ingredient: Ingredient(
-                    id: 1,
-                    name: "Tomato",
-                    amount: 2.5,
-                    imageName: "tomato.png"
-                )
+#Preview {
+    ScrollView {
+        IngredientCard(
+            ingredient: Ingredient(
+                id: 1,
+                name: "Tomato",
+                amount: 2.5,
+                imageName: "tomato.png"
             )
-            .previewLayout(.sizeThatFits)
-            .padding()
-            .background(Color(.systemBackground))
-            
-            // Вариант без картинки → проверка leaf-заглушки
-            IngredientCard(
-                ingredient: Ingredient(
-                    id: 2,
-                    name: "Onion",
-                    amount: 1.0,
-                    imageName: ""
-                )
+        )
+        .padding()
+        .background(Color(.systemBackground))
+        
+        // Вариант без картинки → проверка leaf-заглушки
+        IngredientCard(
+            ingredient: Ingredient(
+                id: 2,
+                name: "Onion",
+                amount: 1.0,
+                imageName: ""
             )
-            .previewLayout(.sizeThatFits)
-            .padding()
-            .background(Color(.systemBackground))
-        }
+        )
+        .padding()
+        .background(Color(.systemBackground))
     }
 }
-#endif
-
