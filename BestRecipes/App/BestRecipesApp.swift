@@ -9,13 +9,9 @@ import SwiftUI
 
 @main
 struct BestRecipesApp: App {
-    @State private var showOnboarding = true
-    
     var body: some Scene {
         WindowGroup {
-            ZStack {
-                OnboardingView()
-            }
+            TabBarView()
         }
     }
 }
