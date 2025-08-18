@@ -16,7 +16,7 @@ struct TabBarView: View {
                 viewModel.selectedTab.view
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color(.systemGroupedBackground))
-                    .ignoresSafeArea()
+                    .ignoresSafeArea(edges: .bottom) // Только bottom, чтобы контент не заезжал под status bar
                 
                 CustomTabBarView(viewModel: viewModel)
             }
