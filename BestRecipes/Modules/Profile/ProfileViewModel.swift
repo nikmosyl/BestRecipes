@@ -7,7 +7,6 @@
 
 
 import SwiftUI
-import Combine
 
 @MainActor
 final class ProfileViewModel: ObservableObject {
@@ -17,7 +16,6 @@ final class ProfileViewModel: ObservableObject {
         
     // MARK: - Private Properties
     private let dataManager = DataManager.shared
-    private var cancellables = Set<AnyCancellable>()
     
     private var hasLoadedInitially = false
     
@@ -31,7 +29,6 @@ final class ProfileViewModel: ObservableObject {
     init() {
         // Загружаем только изображение профиля
         state.profileImage = loadStoredImage()
-        setupImageObserver()
     }
     
     // MARK: - Computed Properties
@@ -83,20 +80,6 @@ final class ProfileViewModel: ObservableObject {
     
     func updateProfileImage(_ image: UIImage?) {
         profileImage = image
-    }
-    
-    // MARK: - Private Methods
-    private func setupImageObserver() {
-        // Можно наблюдать за изменениями если нужно
-        $state
-            .map(\.profileImage)
-            .removeDuplicates { $0 == $1 } // Сравнение UIImage может быть проблемой
-            .sink { [weak self] image in
-                if let image = image {
-                    self?.saveImageToStorage(image)
-                }
-            }
-            .store(in: &cancellables)
     }
     
     private func loadStoredImage() -> UIImage? {

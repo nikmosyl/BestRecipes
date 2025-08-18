@@ -97,16 +97,12 @@ struct ProfileView: View {
     }
     
     // MARK: - Navigation
-    
     private func handleRecipeSelection(_ recipe: Recipe) {
         selectedRecipe = recipe
         showRecipeDetail = true
     }
 }
 
-// MARK: - Previews (iOS 17+ style)
-#if DEBUG && swift(>=5.9)
-#Preview("Profile with recipes") {
+#Preview {
     ProfileView()
 }
-#endif
