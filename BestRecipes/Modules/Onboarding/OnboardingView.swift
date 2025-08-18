@@ -134,7 +134,7 @@ struct OnboardingView: View {
                     checkFirstLaunch()
                 }
             } else {
-                TestView()
+                TabBarView()
             }
         }
         .ignoresSafeArea()
