@@ -19,3 +19,7 @@ struct LoadingView: View {
         .frame(minHeight: 200)
     }
 }
+
+#Preview {
+    LoadingView()
+}
