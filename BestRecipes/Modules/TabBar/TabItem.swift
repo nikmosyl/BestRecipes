@@ -32,7 +32,7 @@ enum TabItem: CaseIterable {
         case .bookmark:
             BookmarkView()
         case .add:
-            AddView()
+            CreateRecipeView()
         case .notifications:
             NotificationsView()
         case .profile:

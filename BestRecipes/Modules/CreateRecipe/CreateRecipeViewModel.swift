@@ -10,7 +10,9 @@ import PhotosUI
 
 @MainActor
 final class CreateRecipeViewModel: ObservableObject {
-    @AppStorage("savedRecipes") private var savedRecipesData: Data = Data()
+    //@AppStorage("savedRecipes") private var savedRecipesData: Data = Data()
+    
+    @Published var savedRecipesData = DataManager.shared.getRecipesFrom(.mine)
     
     @Published var title: String = ""
     
@@ -63,15 +65,6 @@ final class CreateRecipeViewModel: ObservableObject {
             servings: servings
         )
 
-        var existingRecipes: [Recipe] = []
-        if let decoded = try? JSONDecoder().decode([Recipe].self, from: savedRecipesData) {
-            existingRecipes = decoded
-        }
-
-        existingRecipes.append(newRecipe)
-
-        if let encoded = try? JSONEncoder().encode(existingRecipes) {
-            savedRecipesData = encoded
-        }
+        DataManager.shared.addRecipe(newRecipe, to: .mine)
     }
 }
