@@ -24,11 +24,11 @@ struct OnboardingPageView: View {
                 )
             
             // Контент поверх изображения
-            VStack(spacing: 24) { // Увеличиваем пространство между элементами
+            VStack(spacing: 14) { // Увеличиваем пространство между элементами
                 Spacer()
                 
                 // Заголовок и описание в вертикальном стеке
-                VStack(alignment: .center) { // Центрируем по горизонтали
+                VStack(alignment: .center) { // Выравнивание по центру
                     Text(item.title)
                         .font(.largeTitle)
                         .fontWeight(.bold)
@@ -38,9 +38,9 @@ struct OnboardingPageView: View {
                     Text(item.description)
                         .font(.body)
                         .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
+                        .multilineTextAlignment(.center) // Выравнивание текста по центру
                 }
-                .padding(.horizontal, 24) // Отступы по бокам
+                .padding(.horizontal, 150) // Отступы по бокам
                 
                 Spacer()
             }

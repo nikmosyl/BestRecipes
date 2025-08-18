@@ -14,20 +14,8 @@ struct MyApp: App {
     var body: some Scene {
         WindowGroup {
             ZStack {
-                if showOnboarding {
-                    OnboardingView()
-                        .onAppear {
-                            checkFirstLaunch()
-                        }
-                } else {
-                    TestView()
-                }
+                OnboardingView()
             }
         }
-    }
-    
-    private func checkFirstLaunch() {
-        let hasLaunchedBefore = UserDefaults.standard.bool(forKey: "hasLaunchedBefore")
-        showOnboarding = !hasLaunchedBefore
     }
 }
