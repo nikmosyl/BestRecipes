@@ -143,7 +143,7 @@ struct OnboardingView: View {
     private func checkFirstLaunch() {
         let hasLaunchedBefore = UserDefaults.standard.bool(forKey: "hasLaunchedBefore")
         if hasLaunchedBefore {
-            showOnboarding = true
+            showOnboarding = false
         }
     }
     
