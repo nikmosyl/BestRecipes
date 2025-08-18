@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomTabBarView: View {
+struct TabBarView: View {
     @ObservedObject var viewModel: TabBarViewModel
 
     private let barHeight: CGFloat = 106
@@ -84,5 +84,5 @@ struct CustomTabBarView: View {
 }
 
 #Preview {
-    CustomTabBarView(viewModel: TabBarViewModel())
+    TabBarView(viewModel: TabBarViewModel())
 }

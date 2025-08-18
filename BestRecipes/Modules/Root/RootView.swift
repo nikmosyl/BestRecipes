@@ -17,7 +17,7 @@ struct RootView: View {
                 .background(Color(.systemGroupedBackground))
                 .ignoresSafeArea()
             
-            CustomTabBarView(viewModel: viewModel)
+            TabBarView(viewModel: viewModel)
         }
     }
 }
@@ -46,15 +46,6 @@ struct NotificationsView: View {
     var body: some View {
         VStack {
             Text("🔔 Уведомления")
-                .font(.largeTitle)
-        }
-    }
-}
-
-struct ProfileView: View {
-    var body: some View {
-        VStack {
-            Text("👤 Профиль")
                 .font(.largeTitle)
         }
     }
