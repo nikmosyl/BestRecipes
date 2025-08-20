@@ -25,16 +25,9 @@ struct NetworkTestView: View {
                             .padding()
                     } else {
                         ForEach(viewModel.recipes, id: \.id) { recipe in
-                            RecipeItem(
-                                recipe: recipe,
-                                showCookingTime: true,
-                                isBookmarked: viewModel.checkBookmarked(id: recipe.id)
-                            )
+                            RecipeItemView(recipe: recipe)
                         }
                     }
-                }
-                .onAppear {
-                    viewModel.fetchBookmarkedRecipes()
                 }
                 .navigationTitle("Рецепты")
                 .task {

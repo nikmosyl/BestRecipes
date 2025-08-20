@@ -11,11 +11,11 @@ import Foundation
 
 @MainActor
 final class NetworkTestViewModel: ObservableObject {
-    @Published var recipes: [Recipe] = []
+    @Published var recipes: [Recipe] = Array(repeating: Recipe.previewSample, count: 10)
     @Published var errorMessage: String?
     @Published var isLoading = false
-    //saved array "Bookmarked"
-    var bookmarkedRecipes: [Recipe] = []
+//    //saved array "Bookmarked"
+//    var bookmarkedRecipes: [Recipe] = []
     
     func loadRecipes(query: String = "pasta") async {
         isLoading = true
@@ -29,14 +29,5 @@ final class NetworkTestViewModel: ObservableObject {
         }
         
         isLoading = false
-    }
-    
-    
-    func checkBookmarked(id: Int) -> Bool {
-        bookmarkedRecipes.contains { $0.id == id }
-    }
-    
-    func fetchBookmarkedRecipes() {
-        bookmarkedRecipes = DataManager.shared.getRecipesFrom(.favorites)
     }
 }

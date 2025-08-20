@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct BookmarkButton: View {
+    @Binding var isBookmarked: Bool
     var action: () -> Void
-    var isBookmarked: Bool
     var body: some View {
         Button {
             action()
+            print("BookmarkButton: action()")
         } label: {
             ZStack {
                 Circle()
@@ -28,7 +29,10 @@ struct BookmarkButton: View {
 }
 
 #Preview {
-    BookmarkButton(action: {
-        print("--> bookmark button tapped")
-    }, isBookmarked: true)
+    @State var isBookmarked = false
+    
+    BookmarkButton(
+        isBookmarked: $isBookmarked) {
+            isBookmarked.toggle()
+        }
 }

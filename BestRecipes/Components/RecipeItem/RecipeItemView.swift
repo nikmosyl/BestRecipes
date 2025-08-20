@@ -15,15 +15,17 @@ import SwiftUI
 /// Установите значение `true`, если время приготовления должно быть видно (например, в сохраненных рецептах),
 /// и `false`, если оно должно быть скрыто (например, горизонтальная коллекция Trending now 🔥).
 
-struct RecipeItem: View {
-    var recipe: Recipe
-    var showCookingTime: Bool
-    @State var isBookmarked: Bool
+struct RecipeItemView: View {
+    @StateObject private var viewModel: RecipeItemViewModel
+    
+    init(recipe: Recipe) {
+        _viewModel = StateObject(wrappedValue: RecipeItemViewModel(recipe: recipe))
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .bottomTrailing) {
-                AsyncImage(url: URL(string: recipe.imageURL ?? "")) { image in
+                AsyncImage(url: URL(string: viewModel.recipe.imageURL ?? "")) { image in
                     image
                         .resizable()
                         .scaledToFill()
@@ -40,31 +42,26 @@ struct RecipeItem: View {
                 
                 VStack {
                     HStack {
-                        RatingView(rating: recipe.rating)
+                        RatingView(rating: viewModel.recipe.rating)
                         Spacer()
-                        BookmarkButton(action: {
-                            switch isBookmarked {
-                            case false:
-                                DataManager.shared.addRecipe(recipe, to: .favorites)
-                            case true:
-                                DataManager.shared.deleteRecipe(recipe, from: .favorites)
-                            }
-                            isBookmarked.toggle()
-                        }, isBookmarked: isBookmarked)
+                        BookmarkButton(isBookmarked: $viewModel.isBookmarked) {
+                            viewModel.toggleBookmark()
+                        }
                     }
                     Spacer()
                 }
                 .padding()
                 
-                
-                if showCookingTime {
-                    CookingTimeView(cookingInMinutes: recipe.readyInMinutes ?? 0)
-                        .padding()
-                }
+                //if showCookingTime {
+                CookingTimeView(
+                    cookingInMinutes: viewModel.recipe.readyInMinutes ?? 0
+                )
+                    .padding()
+                //}
             }
             .frame(height: 200)
             
-            Text("\(recipe.title ?? "unknown")")
+            Text("\(viewModel.recipe.title ?? "unknown")")
                 .lineLimit(1)
                 .font(.custom("Poppins-SemiBold", size: 16))
             
@@ -74,12 +71,15 @@ struct RecipeItem: View {
                     .clipShape(Circle())
                     .foregroundStyle(.gray)
                 
-                Text(recipe.author ?? "Unknown")
+                Text(viewModel.recipe.author ?? "Unknown")
                     .font(.custom("Poppins-Regular", size: 12))
                     .foregroundStyle(.secondary)
                 
                 Spacer()
             }
+        }
+        .onAppear {
+            viewModel.onAppear()
         }
         .padding()
     }
@@ -87,27 +87,28 @@ struct RecipeItem: View {
 
 
 #Preview {
-    RecipeItem(
-        recipe: Recipe(
-            id: 642583,
-            title: "Farfalle with Peas, Ham and Cream",
-            instruction: nil,
-            instructions: [],
-            author: "By Zeelicious Foods",
-            spoonacularScore: 47.98303985595703,
-            readyInMinutes: 30,
-            imageURL: "https://img.spoonacular.com/recipes/642583-312x231.jpg",
-            extendedIngredients: [],
-            dishTypes: [
-                "side dish",
-                "lunch",
-                "main course",
-                "main dish",
-                "dinner"
-            ],
-            servings: 4
-        ),
-        showCookingTime: true,
-        isBookmarked: true
-    )
+//    RecipeItemView(
+//        recipe: Recipe(
+//            id: 642583,
+//            title: "Farfalle with Peas, Ham and Cream",
+//            instruction: nil,
+//            instructions: [],
+//            author: "By Zeelicious Foods",
+//            spoonacularScore: 47.98303985595703,
+//            readyInMinutes: 30,
+//            imageURL: "https://img.spoonacular.com/recipes/642583-312x231.jpg",
+//            extendedIngredients: [],
+//            dishTypes: [
+//                "side dish",
+//                "lunch",
+//                "main course",
+//                "main dish",
+//                "dinner"
+//            ],
+//            servings: 4
+//        ),
+//        //showCookingTime: true,
+//        isBookmarked: true
+//    )
+    RecipeItemView(recipe: Recipe.previewSample)
 }
