@@ -12,8 +12,7 @@ extension DataManager {
     
     // MARK: - Get Available Ingredients
     func getAvailableIngredients() -> Set<Int> {
-        guard let data = UserDefaults.standard.data(forKey: availableIngredientsKey),
-              let ids = try? JSONDecoder().decode(Set<Int>.self, from: data) else {
+        guard let ids: Set<Int> = FileManager.load(Set<Int>.self, from: availableIngredientsKey) else {
             return []
         }
         return ids
@@ -21,7 +20,8 @@ extension DataManager {
     
     // MARK: - Check if Ingredient is Available
     func isIngredientAvailable(_ ingredientId: Int) -> Bool {
-        getAvailableIngredients().contains(ingredientId)
+        let result = getAvailableIngredients().contains(ingredientId)
+        return result
     }
     
     // MARK: - Toggle Ingredient Availability
@@ -53,13 +53,12 @@ extension DataManager {
     
     // MARK: - Clear All Available Ingredients
     func clearAllAvailableIngredients() {
-        UserDefaults.standard.removeObject(forKey: availableIngredientsKey)
+        let url = FileManager.documentsDirectory.appendingPathComponent(availableIngredientsKey)
+        try? FileManager.default.removeItem(at: url)
     }
     
     // MARK: - Private Helper
     private func saveAvailableIngredients(_ ids: Set<Int>) {
-        if let data = try? JSONEncoder().encode(ids) {
-            UserDefaults.standard.set(data, forKey: availableIngredientsKey)
-        }
+        FileManager.save(ids, as: availableIngredientsKey)
     }
 }
