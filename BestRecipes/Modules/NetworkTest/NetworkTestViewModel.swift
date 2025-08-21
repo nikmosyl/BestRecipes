@@ -11,9 +11,11 @@ import Foundation
 
 @MainActor
 final class NetworkTestViewModel: ObservableObject {
-    @Published var recipes: [Recipe] = []
+    @Published var recipes: [Recipe] = Array(repeating: Recipe.previewSample, count: 10)
     @Published var errorMessage: String?
     @Published var isLoading = false
+//    //saved array "Bookmarked"
+//    var bookmarkedRecipes: [Recipe] = []
     
     func loadRecipes(query: String = "pasta") async {
         isLoading = true
