@@ -29,15 +29,6 @@ struct TabBarView: View {
 
 
 // MARK: - Примеры экранов
-struct HomeView: View {
-    var body: some View {
-        VStack {
-            Text("🏠 Главная")
-                .font(.largeTitle)
-        }
-    }
-}
-
 struct BookmarkView: View {
     var body: some View {
         VStack {
