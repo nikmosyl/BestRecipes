@@ -27,12 +27,3 @@ struct BookmarkButton: View {
         }
     }
 }
-
-#Preview {
-    @State var isBookmarked = false
-    
-    BookmarkButton(
-        isBookmarked: $isBookmarked) {
-            isBookmarked.toggle()
-        }
-}
