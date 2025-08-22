@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OnboardingPageView: View {
-    let item: Onboarding
+    let item: OnboardingModel
     
     var body: some View {
         ZStack {
