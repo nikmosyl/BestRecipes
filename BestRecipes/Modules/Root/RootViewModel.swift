@@ -8,4 +8,5 @@
 import Foundation
 
 final class RootViewModel: ObservableObject {
+    @Published var isOnboardingComplete = DataManager.shared.isOnboardingComplete()
 }

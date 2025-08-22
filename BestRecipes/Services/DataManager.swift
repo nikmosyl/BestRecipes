@@ -80,6 +80,10 @@ enum SavedRecipesType: String {
     case recent = "recentRecipes"
 }
 
+enum UserSettingsLink: String {
+    case onboarding
+}
+
 final class DataManager {
     static let shared = DataManager()
     
@@ -102,6 +106,14 @@ final class DataManager {
     private var apiKeyIndex = 2
     
     private init() {}
+    
+    func completeOnboarding() {
+        UserDefaults.standard.set(true, forKey: UserSettingsLink.onboarding.rawValue)
+    }
+    
+    func isOnboardingComplete() -> Bool {
+        UserDefaults.standard.bool(forKey: UserSettingsLink.onboarding.rawValue)
+    }
     
     func passNextApiKey() -> Bool {
         if apiKeyIndex < apiKeys.count - 1 {

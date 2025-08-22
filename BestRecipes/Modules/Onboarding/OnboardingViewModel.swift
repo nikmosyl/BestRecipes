@@ -38,11 +38,10 @@ class OnboardingViewModel: ObservableObject {
     }
     
     func completeOnboarding() {
-        UserDefaults.standard.set(true, forKey: "hasLaunchedBefore")
+        DataManager.shared.completeOnboarding()
     }
     
     func nextPage() {
-        print("Переход на страницу \(currentPage + 1)") // Отладка
         currentPage = min(currentPage + 1, items.count - 1)
     }
     
