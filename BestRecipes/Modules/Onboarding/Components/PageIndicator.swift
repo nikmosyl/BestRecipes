@@ -15,28 +15,21 @@ struct PageIndicator: View {
     
     var body: some View {
         HStack(spacing: indicatorSpacing) {
-            ForEach((currentPage == 0 ? 1 : 0)..<totalPages, id: \.self) { page in
+            ForEach(1...totalPages, id: \.self) { page in
                 RoundedRectangle(cornerRadius: indicatorSize / 10)
-                    .fill(currentPage == page ?
-                          LinearGradient(
-                            gradient: Gradient(
-                                stops: [
+                    .fill(
+                        currentPage == page
+                        ? AnyShapeStyle(
+                            LinearGradient(
+                                gradient: Gradient(stops: [
                                     Gradient.Stop(color: Color(hex: "#FA9BB1"), location: 0.0),
                                     Gradient.Stop(color: Color(hex: "#F8C89A"), location: 1.0)
-                                ]
-                            ),
-                            startPoint: UnitPoint(x: 0.5, y: 0),
-                            endPoint: UnitPoint(x: 0.5, y: 1)
-                          ) :
-                            LinearGradient(
-                                gradient: Gradient(
-                                    stops: [
-                                        Gradient.Stop(color: Color(hex: "#D9D9D9"), location: 0.0)
-                                    ]
-                                ),
-                                startPoint: UnitPoint(x: 0.5, y: 0),
-                                endPoint: UnitPoint(x: 0.5, y: 1)
+                                ]),
+                                startPoint: .top,
+                                endPoint: .bottom
                             )
+                        )
+                        : AnyShapeStyle(Color(hex: "#D9D9D9"))
                     )
                     .frame(width: indicatorSize, height: 8)
                     .animation(.easeInOut(duration: 0.3), value: currentPage)
@@ -47,5 +40,5 @@ struct PageIndicator: View {
 }
 
 #Preview {
-    PageIndicator(currentPage: .constant(1), totalPages: 5)
+    PageIndicator(currentPage: .constant(2), totalPages: 5)
 }
