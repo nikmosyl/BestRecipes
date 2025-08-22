@@ -11,7 +11,11 @@ struct RootView: View {
     @StateObject private var viewModel = RootViewModel()
     
     var body: some View {
-        RootView()
+        if viewModel.isOnboardingComplete {
+            TabBarView()
+        } else {
+            OnboardingView(rootViewModel: viewModel)
+        }
     }
 }
 
