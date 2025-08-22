@@ -6,9 +6,8 @@
 //
 
 import Foundation
-import Combine
 
-class OnboardingViewModel: ObservableObject {
+final class OnboardingViewModel: ObservableObject {
     @Published var currentPage = 0
     @Published var items: [OnboardingModel] = [
         OnboardingModel(
@@ -34,11 +33,7 @@ class OnboardingViewModel: ObservableObject {
     ]
     
     var isLastPage: Bool {
-        return currentPage == items.count - 1
-    }
-    
-    func completeOnboarding() {
-        DataManager.shared.completeOnboarding()
+        currentPage == items.count - 1
     }
     
     func nextPage() {

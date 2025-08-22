@@ -7,88 +7,69 @@
 
 import SwiftUI
 
-
-
-// 2. Обновляем OnboardingView
 struct OnboardingView: View {
     @StateObject private var viewModel = OnboardingViewModel()
-    @State private var showOnboarding = true
+    @StateObject var rootViewModel: RootViewModel
     
     var body: some View {
         ZStack {
-            if showOnboarding {
-                TabView(selection: $viewModel.currentPage) {
-                    ForEach(viewModel.items.indices, id: \.self) { index in
-                        OnboardingPageView(item: viewModel.items[index])
-                            .tag(index)
-                    }
+            TabView(selection: $viewModel.currentPage) {
+                ForEach(viewModel.items.indices, id: \.self) { index in
+                    OnboardingPageView(item: viewModel.items[index])
+                        .tag(index)
                 }
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                .overlay(alignment: .bottom) {
-                    VStack(spacing: 24) {
-                        // Место для индикатора или кнопки
-                        if viewModel.currentPage == 0 {
-                            Spacer(minLength: 80) // Создаем пространство для кнопки
+            }
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            .overlay(alignment: .bottom) {
+                VStack(spacing: 24) {
+                    // Место для индикатора или кнопки
+                    if viewModel.currentPage == 0 {
+                        Spacer(minLength: 80) // Создаем пространство для кнопки
+                    } else {
+                        PageIndicator(
+                            currentPage: $viewModel.currentPage,
+                            totalPages: viewModel.items.count - 1
+                        )
+                        .padding(.bottom, 16)
+                    }
+                    
+                    // Единственная кнопка навигации
+                    Button(action: {
+                        if viewModel.isLastPage {
+                            rootViewModel.completeOnboarding()
                         } else {
-                            PageIndicator(
-                                currentPage: $viewModel.currentPage,
-                                totalPages: viewModel.items.count
-                            )
-                            .padding(.bottom, 16)
+                            viewModel.nextPage()
                         }
-                        
-                        // Единственная кнопка навигации
-                        Button(action: {
-                            if viewModel.isLastPage {
-                                viewModel.completeOnboarding()
-                                showOnboarding = false
-                            } else {
-                                viewModel.nextPage()
-                            }
-                        }) {
-                            Text(determineButtonTitle(
-                                for: viewModel.currentPage,
-                                totalPages: viewModel.items.count
-                            ))
-                            .padding()
-                            .frame(width: 156, height: 56)
-                            .background(Color.red)
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
-                        }
-                        
-                        // Кнопка "Пропустить"
-                        if viewModel.currentPage > 0 {
-                            Button(action: {
-                                viewModel.completeOnboarding()
-                                showOnboarding = false
-                            }) {
-                                Text("Пропустить")
-                                    .foregroundColor(Color.white)
-                                    .font(.subheadline)
-                            }
-                            .padding(20)
-                        }
+                    }) {
+                        Text(determineButtonTitle(
+                            for: viewModel.currentPage,
+                            totalPages: viewModel.items.count
+                        ))
+                        .padding()
+                        .frame(width: 156, height: 56)
+                        .background(Color.red)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
                     }
-                    .frame(maxWidth: .infinity)
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 30)
+                    
+                    // Кнопка "Пропустить"
+                    if viewModel.currentPage > 0 {
+                        Button(action: {
+                            rootViewModel.completeOnboarding()
+                        }) {
+                            Text("Пропустить")
+                                .foregroundColor(Color.white)
+                                .font(.subheadline)
+                        }
+                        .padding(20)
+                    }
                 }
-                .onAppear {
-                    checkFirstLaunch()
-                }
-            } else {
-                TabBarView()
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 24)
+                .padding(.vertical, 30)
             }
         }
         .ignoresSafeArea()
-    }
-    
-    private func checkFirstLaunch() {
-        let hasLaunchedBefore = UserDefaults.standard.bool(forKey: "hasLaunchedBefore")
-        if hasLaunchedBefore {
-            showOnboarding = false
-        }
     }
     
     private func determineButtonTitle(for currentPage: Int, totalPages: Int) -> String {
@@ -104,5 +85,5 @@ struct OnboardingView: View {
 }
 
 #Preview {
-    OnboardingView()
+    OnboardingView(rootViewModel: RootViewModel())
 }

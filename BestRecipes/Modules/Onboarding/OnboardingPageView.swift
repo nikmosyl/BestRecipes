@@ -16,8 +16,8 @@ struct OnboardingPageView: View {
             Image(item.imageName)
                 .resizable()
                 .scaledToFill()
-                //.frame(maxWidth: .infinity, maxHeight: .infinity)
-                //.ignoresSafeArea()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .ignoresSafeArea()
                 .clipped()
                 .overlay(
                     Color.black.opacity(0.3)
@@ -40,11 +40,11 @@ struct OnboardingPageView: View {
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center) // Выравнивание текста по центру
                 }
-                //.padding(.horizontal, 150) // Отступы по бокам
+                .padding(.horizontal, 150) // Отступы по бокам
                 
                 Spacer()
             }
-            //.frame(maxWidth: .infinity, maxHeight: .infinity)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .contentShape(Rectangle()) // Для правильного определения размера
         }
         .ignoresSafeArea()
@@ -52,5 +52,11 @@ struct OnboardingPageView: View {
 }
 
 #Preview {
-    OnboardingView()
+    OnboardingPageView(
+        item: OnboardingModel(
+            title: "Тестирование длинного текста который может не влезть",
+            description: "Тестирование описания которое может не влезть",
+            imageName: "Onboarding"
+        )
+    )
 }
