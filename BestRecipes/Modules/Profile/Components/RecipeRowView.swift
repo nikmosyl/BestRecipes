@@ -15,28 +15,12 @@ struct RecipeRowView: View {
         VStack(alignment: .leading, spacing: 12) {
             // Image with rating and cooking time
             ZStack(alignment: .bottomTrailing) {
-                // Recipe Image
-                AsyncImage(url: URL(string: recipe.imageURL ?? "")) { phase in
-                    switch phase {
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFill()
-                    case .failure, .empty:
-                        Rectangle()
-                            .foregroundColor(.gray.opacity(0.2))
-                            .overlay(
-                                Image(systemName: "photo")
-                                    .font(.largeTitle)
-                                    .foregroundColor(.gray.opacity(0.5))
-                            )
-                    @unknown default:
-                        ProgressView()
-                    }
-                }
-                .frame(height: 180)
-                .clipped()
-                .clipShape(RoundedRectangle(cornerRadius: 12))
+                
+                // Используем готовый RecipeImageDisplayView
+                RecipeImageDisplayView(imageURL: recipe.imageURL)
+                    .frame(height: 180)
+                    .clipped()
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
                 
                 // Градиент внизу
                 LinearGradient(
@@ -95,6 +79,17 @@ struct RecipeRowView: View {
         .contentShape(Rectangle())
         .accessibilityElement(children: .combine)
         .accessibilityLabel(label)
+    }
+    
+    // Вспомогательное вычисляемое свойство для placeholder
+    private var placeholderImage: some View {
+        Rectangle()
+            .foregroundColor(.gray.opacity(0.2))
+            .overlay(
+                Image(systemName: "photo")
+                    .font(.largeTitle)
+                    .foregroundColor(.gray.opacity(0.5))
+            )
     }
     
     private var label: String {

@@ -64,10 +64,19 @@ final class ProfileViewModel: ObservableObject {
         
         let recipes = dataManager.getRecipesFrom(.mine)
         state.myRecipes = recipes
+        
+#if DEBUG
+        print(" Loaded \(recipes.count) recipes")
+        ImageStorageManager.shared.printStorageInfo()
+#endif
     }
     
     func deleteRecipe(_ recipe: Recipe) {
         withAnimation(.easeOut(duration: 0.2)) {
+            // Удаляем изображение если оно локальное
+            if let imageURL = recipe.imageURL, imageURL.hasPrefix("local://") {
+                ImageStorageManager.shared.deleteImage(for: recipe.id)
+            }
             dataManager.deleteRecipe(recipe, from: .mine)
             state.myRecipes.removeAll { $0.id == recipe.id }
         }
