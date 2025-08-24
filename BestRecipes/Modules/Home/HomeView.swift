@@ -11,15 +11,12 @@ struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     
     var body: some View {
-        ScrollView {
-            ScrollView(.horizontal) {
-                HStack {
-                    ForEach(viewModel.recipes, id: \.id) { recipe in
-                        RecipeItemView(recipe: recipe)
-                    }
-                }
+        VStack {
+            ScrollView {
+                TrendingSection(recipes: Array(repeating: Recipe.previewSample, count: 20))
             }
         }
+        .padding()
     }
 }
 

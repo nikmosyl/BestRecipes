@@ -17,6 +17,7 @@ import SwiftUI
 
 struct RecipeItemView: View {
     @StateObject private var viewModel: RecipeItemViewModel
+    @State private var showDetail = false
     
     init(recipe: Recipe) {
         _viewModel = StateObject(wrappedValue: RecipeItemViewModel(recipe: recipe))
@@ -52,12 +53,10 @@ struct RecipeItemView: View {
                 }
                 .padding()
                 
-                //if showCookingTime {
                 CookingTimeView(
                     cookingInMinutes: viewModel.recipe.readyInMinutes ?? 0
                 )
                     .padding()
-                //}
             }
             .frame(height: 200)
             
@@ -78,37 +77,19 @@ struct RecipeItemView: View {
                 Spacer()
             }
         }
+        .navigationDestination(isPresented: $showDetail) {
+            RecipeDetailView(recipe: viewModel.recipe)
+        }
         .onAppear {
             viewModel.onAppear()
         }
-        //.padding()
+        .onTapGesture {
+            showDetail = true
+        }
     }
 }
 
 
 #Preview {
-//    RecipeItemView(
-//        recipe: Recipe(
-//            id: 642583,
-//            title: "Farfalle with Peas, Ham and Cream",
-//            instruction: nil,
-//            instructions: [],
-//            author: "By Zeelicious Foods",
-//            spoonacularScore: 47.98303985595703,
-//            readyInMinutes: 30,
-//            imageURL: "https://img.spoonacular.com/recipes/642583-312x231.jpg",
-//            extendedIngredients: [],
-//            dishTypes: [
-//                "side dish",
-//                "lunch",
-//                "main course",
-//                "main dish",
-//                "dinner"
-//            ],
-//            servings: 4
-//        ),
-//        //showCookingTime: true,
-//        isBookmarked: true
-//    )
     RecipeItemView(recipe: Recipe.previewSample)
 }
