@@ -13,7 +13,9 @@ struct CategoryCell: View {
     let recipe: Recipe
     
     init(recipe: Recipe) {
-        isBookmarked = DataManager.shared.getRecipesFrom(.favorites).contains(where: { bookmark in
+        isBookmarked = DataManager.shared
+            .getRecipesFrom(.favorites)
+            .contains(where: { bookmark in
             bookmark.id == recipe.id
         })
         

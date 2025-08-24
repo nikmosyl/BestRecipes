@@ -1,20 +1,21 @@
 //
-//  HorizontalScrollSection.swift
+//  RecentSection.swift
 //  BestRecipes
 //
-//  Created by nikita on 24.08.2025.
+//  Created by nikita on 25.08.2025.
 //
 
 import SwiftUI
 
-struct TrendingSection: View {
-    @State var seeAll = false
+struct RecentSection: View {
+    @State private var seeAll = false
     
     let recipes: [Recipe]
+    let title = "Recent recipe"
     
     var body: some View {
         HStack {
-            Text("Trending now")
+            Text(title)
                 .font(.custom("Poppins-SemiBold", size: 20))
             
             Spacer()
@@ -26,7 +27,7 @@ struct TrendingSection: View {
         .navigationDestination(isPresented: $seeAll) {
             DiscoverView(
                 recipes: recipes,
-                title: "Trending now",
+                title: title,
                 showBackButton: true
             )
         }
@@ -34,7 +35,8 @@ struct TrendingSection: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 16) {
                 ForEach(recipes, id: \.id) { recipe in
-                    RecipeItemView(recipe: recipe)
+                    RecentCell(recipe: recipe)
+                        .frame(width: 124, height: 190)
                 }
             }
         }
@@ -42,7 +44,5 @@ struct TrendingSection: View {
 }
 
 #Preview {
-    TrendingSection(
-        recipes: Array(repeating: Recipe.previewSample, count: 20)
-    )
+    RecentSection(recipes: Array(repeating: Recipe.previewSample, count: 20))
 }
