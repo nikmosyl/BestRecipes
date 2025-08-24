@@ -81,7 +81,7 @@ struct RecipeItemView: View {
         .onAppear {
             viewModel.onAppear()
         }
-        .padding()
+        //.padding()
     }
 }
 
