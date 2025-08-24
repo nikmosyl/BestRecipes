@@ -10,7 +10,7 @@ import SwiftUI
 struct TrendingSection: View {
     @State var seeAll = false
     
-    let recipes: [Recipe] // массив элементов
+    let recipes: [Recipe]
     
     var body: some View {
         HStack {

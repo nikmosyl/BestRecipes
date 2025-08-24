@@ -12,8 +12,16 @@ struct HomeView: View {
     
     var body: some View {
         VStack {
-            ScrollView {
-                TrendingSection(recipes: Array(repeating: Recipe.previewSample, count: 20))
+            ScrollView(showsIndicators: false) {
+                TrendingSection(
+                    recipes: Array(repeating: Recipe.previewSample, count: 20)
+                )
+                
+                CategorySection(
+                    currentCategory: $viewModel.currentCategory,
+                    categories: MealType.allCases,
+                    recipes: viewModel.categoryRecipes
+                )
             }
         }
         .padding()
