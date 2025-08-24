@@ -11,6 +11,14 @@ struct IngredientCard: View {
     let ingredient: Ingredient
     @State private var isChecked = false
     
+    private let dataManager = DataManager.shared
+    
+    init(ingredient: Ingredient) {
+        self.ingredient = ingredient
+        // Инициализируем isChecked из UserDefaults
+        self._isChecked = State(initialValue: DataManager.shared.isIngredientAvailable(ingredient.id))
+    }
+    
     var body: some View {
         HStack(spacing: 16) {
             // Image container
@@ -54,7 +62,12 @@ struct IngredientCard: View {
         .background(Color.gray.opacity(0.2))
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .contentShape(Rectangle())
-        .onTapGesture { isChecked.toggle() } // работаем по всей плашке
+        .onTapGesture {
+            // Обновляем состояние
+            isChecked.toggle()
+            // Сохраняем в UserDefaults через DataManager
+            dataManager.toggleIngredient(ingredient.id)
+        }
     }
     
     private var ingredientImageURL: URL? {

@@ -80,6 +80,10 @@ enum SavedRecipesType: String {
     case recent = "recentRecipes"
 }
 
+enum UserSettingsLink: String {
+    case onboarding
+}
+
 final class DataManager {
     static let shared = DataManager()
     
@@ -102,6 +106,14 @@ final class DataManager {
     private var apiKeyIndex = 2
     
     private init() {}
+    
+    func completeOnboarding() {
+        UserDefaults.standard.set(true, forKey: UserSettingsLink.onboarding.rawValue)
+    }
+    
+    func isOnboardingComplete() -> Bool {
+        UserDefaults.standard.bool(forKey: UserSettingsLink.onboarding.rawValue)
+    }
     
     func passNextApiKey() -> Bool {
         if apiKeyIndex < apiKeys.count - 1 {
@@ -159,12 +171,26 @@ final class DataManager {
         }
     }
     
+    private func fileURL(for storage: SavedRecipesType) -> URL {
+        let documents = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+        return documents.appendingPathComponent("\(storage.rawValue).json")
+    }
+    
     func getRecipesFrom(_ storage: SavedRecipesType) -> [Recipe] {
-        if let recipesData = UserDefaults.standard.data(forKey: storage.rawValue),
-           let recipes = try? JSONDecoder().decode([Recipe].self, from: recipesData) {
-            return recipes
+        let url = fileURL(for: storage)
+        
+        guard fileManager.fileExists(atPath: url.path) else {
+            return []
         }
-        return []
+        
+        do {
+            let data = try Data(contentsOf: url)
+            let recipes = try JSONDecoder().decode([Recipe].self, from: data)
+            return recipes
+        } catch {
+            print("Ошибка чтения рецептов из \(url.lastPathComponent):", error)
+            return []
+        }
     }
     
     func addRecipe(_ recipe: Recipe, to storage: SavedRecipesType) {
@@ -173,10 +199,7 @@ final class DataManager {
         if recipes.contains(where: { $0.id == recipe.id }) { return }
         
         recipes.append(recipe)
-        
-        if let item = try? JSONEncoder().encode(recipes) {
-            UserDefaults.standard.set(item, forKey: storage.rawValue)
-        }
+        saveRecipes(recipes, to: storage)
     }
     
     func deleteRecipe(_ recipe: Recipe, from storage: SavedRecipesType) {
@@ -185,8 +208,17 @@ final class DataManager {
         guard let index = recipes.firstIndex(where: { $0.id == recipe.id }) else { return }
         recipes.remove(at: index)
         
-        if let item = try? JSONEncoder().encode(recipes) {
-            UserDefaults.standard.set(item, forKey: storage.rawValue)
+        saveRecipes(recipes, to: storage)
+    }
+    
+    private func saveRecipes(_ recipes: [Recipe], to storage: SavedRecipesType) {
+        let url = fileURL(for: storage)
+        
+        do {
+            let data = try JSONEncoder().encode(recipes)
+            try data.write(to: url, options: .atomic)
+        } catch {
+            print("Ошибка сохранения рецептов в \(url.lastPathComponent):", error)
         }
     }
 }
