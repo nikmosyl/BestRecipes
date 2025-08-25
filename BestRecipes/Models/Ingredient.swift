@@ -9,9 +9,9 @@ import Foundation
 
 struct Ingredient: Codable {
     let id: Int
-    let name: String
-    let amount: Double
-    let imageName: String
+    let name: String?
+    let amount: Double?
+    let imageName: String?
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -21,6 +21,6 @@ struct Ingredient: Codable {
     }
     
     var weight: Int {
-        Int(amount * 28.34952)
+        Int((amount ?? 0) * 28.34952)
     }
 }

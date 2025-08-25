@@ -103,7 +103,7 @@ final class DataManager {
     
     private var imageCache: [String: Data] = [:]
     private var recipeCache: [String: [Recipe]] = [:]
-    private var apiKeyIndex = 2
+    private var apiKeyIndex = 4
     
     private init() {}
     
@@ -148,10 +148,13 @@ final class DataManager {
                 SearchResult.self,
                 from: url
             )
+            
+            print("DataManager searchResult:", searchResult)
+            
             recipeCache[url] = searchResult.results
             return searchResult.results
         } catch {
-            print("Ошибка загрузки рецептов: \(error)")
+            print("Ошибка загрузки рецептов DataManager: \(error)")
             return []
         }
     }
@@ -166,7 +169,7 @@ final class DataManager {
             imageCache[url] = data
             return data
         } catch {
-            print("Ошибка загрузки картинки: \(error)")
+            print("Ошибка загрузки картинки DataManager: \(error)")
             return Data()
         }
     }
