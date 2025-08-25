@@ -10,7 +10,7 @@ import SwiftUI
 struct TrendingSection: View {
     @State var seeAll = false
     
-    let recipes: [Recipe]
+    @Binding var recipes: [Recipe]
     
     var body: some View {
         HStack {
@@ -23,12 +23,16 @@ struct TrendingSection: View {
                 seeAll = true
             }
         }
+        .padding(.top, 16)
         .navigationDestination(isPresented: $seeAll) {
             DiscoverView(
                 recipes: recipes,
                 title: "Trending now",
                 showBackButton: true
             )
+        }
+        if recipes.isEmpty {
+            ProgressView()
         }
         
         ScrollView(.horizontal, showsIndicators: false) {
@@ -39,10 +43,4 @@ struct TrendingSection: View {
             }
         }
     }
-}
-
-#Preview {
-    TrendingSection(
-        recipes: Array(repeating: Recipe.previewSample, count: 20)
-    )
 }

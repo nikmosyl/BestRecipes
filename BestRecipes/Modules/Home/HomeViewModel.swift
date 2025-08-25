@@ -7,12 +7,55 @@
 
 import Foundation
 
+@MainActor
 final class HomeViewModel: ObservableObject {
-    @Published var trandings: [Recipe] = Array(repeating: Recipe.previewSample, count: 10)
+    @Published var searchText = ""
+    @Published var searchResult: [Recipe] = []
     
-    @Published var currentCategory = MealType.mainCourse
+    @Published var trandings: [Recipe] = []
+    
+    @Published var currentCategory = MealType.mainCourse {
+        didSet {
+            Task { await loadCategoryRecipes() }
+        }
+    }
     @Published var categoryes = MealType.allCases
-    @Published var categoryRecipes: [Recipe] = Array(repeating: Recipe.previewSample, count: 10)
+    @Published var categoryRecipes: [Recipe] = []
     
-    @Published var recents: [Recipe] = DataManager.shared.getRecipesFrom(.recent)
+    init() {
+        loadTrendings()
+        Task { await loadCategoryRecipes() }
+    }
+    
+    private func loadTrendings() {
+        Task {
+            do {
+                let recipes = try await DataManager.shared.getRecipes(type: .trend)
+                self.trandings = recipes
+            } catch {
+                print("Ошибка при загрузке трендовых рецептов: \(error)")
+            }
+        }
+    }
+    
+    func loadCategoryRecipes() async {
+        do {
+            let recipes = try await DataManager.shared.getRecipes(type: .type, by: currentCategory.rawValue)
+            self.categoryRecipes = recipes
+        } catch {
+            print("Ошибка при загрузке рецептов категории \(currentCategory.rawValue): \(error)")
+            self.categoryRecipes = []
+        }
+    }
+    
+    func search() {
+        Task {
+            do {
+                let searchResult = try await DataManager.shared.getRecipes(type: .search, by: searchText)
+                self.searchResult = searchResult
+            } catch {
+                print("Ошибка при загрузке трендовых рецептов: \(error)")
+            }
+        }
+    }
 }

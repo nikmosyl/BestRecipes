@@ -103,7 +103,7 @@ final class DataManager {
     
     private var imageCache: [String: Data] = [:]
     private var recipeCache: [String: [Recipe]] = [:]
-    private var apiKeyIndex = 4
+    private var apiKeyIndex = 0
     
     private init() {}
     
@@ -135,9 +135,6 @@ final class DataManager {
                   + "&number=\(amount)"
                   + type.rawValue + key
                   + "&offset=\(offset)"
-        
-        #warning("убрать дебаг")
-        print("DataManager > getRecipes() > url :", url)
         
         if let cached = recipeCache[url] {
             return cached

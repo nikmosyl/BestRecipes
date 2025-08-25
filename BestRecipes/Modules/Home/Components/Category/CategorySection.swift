@@ -9,9 +9,8 @@ import SwiftUI
 
 struct CategorySection: View {
     @Binding var currentCategory: MealType
-    
+    @Binding var recipes: [Recipe]
     let categories: [MealType]
-    var recipes: [Recipe]
     
     var body: some View {
         HStack {
@@ -20,6 +19,7 @@ struct CategorySection: View {
             
             Spacer()
         }
+        .padding(.top, 16)
         
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 16) {
@@ -55,12 +55,4 @@ struct CategorySection: View {
             }
         }
     }
-}
-
-#Preview {
-    CategorySection(
-        currentCategory: .constant(.mainCourse),
-        categories: MealType.allCases,
-        recipes: Array(repeating: Recipe.previewSample, count: 20)
-    )
 }

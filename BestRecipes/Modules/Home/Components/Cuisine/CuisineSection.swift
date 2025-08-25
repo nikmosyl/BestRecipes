@@ -19,6 +19,7 @@ struct CuisineSection: View {
             
             Spacer()
         }
+        .padding(.top, 16)
         
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 16) {
