@@ -12,22 +12,22 @@ final class OnboardingViewModel: ObservableObject {
     @Published var items: [OnboardingModel] = [
         OnboardingModel(
             title: "Best Recipes",
-            description: "Откройте для себя мир новых вкусов",
+            description: "Find best recipes for cooking",
             imageName: "Onboarding"
         ),
         OnboardingModel(
-            title: "Рецепты со всех",
-            description: "уголков бескрайнего света",
+            title: "Recipes from all over the World",
+            description: "over the World",
             imageName: "Onboarding1"
         ),
         OnboardingModel(
-            title: "Рецепты буквально",
-            description: "расписаны со всеми деталями",
+            title: "Recipes with",
+            description: "each and every detail",
             imageName: "Onboarding2"
         ),
         OnboardingModel(
-            title: "Начни готовить прямо сейчас",
-            description: "или сохрани до особого случая",
+            title: "Cook it now or save it for later",
+            description: "save it for later",
             imageName: "Onboarding3"
         )
     ]

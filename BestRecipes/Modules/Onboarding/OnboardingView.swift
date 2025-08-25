@@ -57,7 +57,7 @@ struct OnboardingView: View {
                         Button(action: {
                             rootViewModel.completeOnboarding()
                         }) {
-                            Text("Пропустить")
+                            Text("Skip")
                                 .foregroundColor(Color.white)
                                 .font(.subheadline)
                         }
@@ -75,11 +75,11 @@ struct OnboardingView: View {
     private func determineButtonTitle(for currentPage: Int, totalPages: Int) -> String {
         switch currentPage {
         case 0:
-            return "Начать"
+            return "Get started"
         case 1..<totalPages-1:
-            return "Продолжить"
+            return "Continue"
         default:
-            return "Начать готовить"
+            return "Start Cooking"
         }
     }
 }
