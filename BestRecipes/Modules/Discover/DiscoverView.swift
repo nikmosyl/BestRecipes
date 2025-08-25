@@ -15,7 +15,7 @@ struct DiscoverView: View {
     let showBackButton: Bool
     
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             ForEach(recipes, id: \.id) { recipe in
                 RecipeItemView(recipe: recipe)
                     .padding(.top, 24)

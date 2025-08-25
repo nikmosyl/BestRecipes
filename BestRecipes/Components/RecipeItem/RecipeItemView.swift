@@ -26,20 +26,24 @@ struct RecipeItemView: View {
     var body: some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .bottomTrailing) {
-                AsyncImage(url: URL(string: viewModel.recipe.imageURL ?? "")) { image in
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(height: 200)
-                        .clipped()
-                } placeholder: {
-                    ZStack {
-                        Color.clear
-                        ProgressView()
-                            .frame(height: 200)
-                    }
-                }
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+//                AsyncImage(url: URL(string: viewModel.recipe.imageURL ?? "")) { image in
+//                    image
+//                        .resizable()
+//                        .scaledToFill()
+//                        .frame(height: 200)
+//                        .clipped()
+//                } placeholder: {
+//                    ZStack {
+//                        Color.clear
+//                        ProgressView()
+//                            .frame(height: 200)
+//                    }
+//                }
+//                .clipShape(RoundedRectangle(cornerRadius: 10))
+                
+                RecipeImageDisplayView(imageURL: viewModel.recipe.imageURL)
+                    .frame(height: 200)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
                 
                 VStack {
                     HStack {

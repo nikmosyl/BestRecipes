@@ -24,9 +24,7 @@ struct HomeView: View {
             
             RecentSection(recipes: viewModel.recents)
             
-            TrendingSection(
-                recipes: Array(repeating: Recipe.previewSample, count: 20)
-            )
+            CuisineSection()
         }
         .padding(.horizontal, 16)
         .toolbar {
