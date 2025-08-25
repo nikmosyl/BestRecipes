@@ -14,18 +14,9 @@ struct RecentCell: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            AsyncImage(url: URL(string: recipe.imageURL ?? "")) { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-            } placeholder: {
-                ZStack {
-                    Color.clear
-                    ProgressView()
-                }
-            }
-            .frame(width: 124, height: 124)
-            .clipShape(RoundedRectangle(cornerRadius: 16))
+            RecipeImageDisplayView(imageURL: recipe.imageURL)
+                .frame(width: 124, height: 124)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
             
             Spacer()
             
