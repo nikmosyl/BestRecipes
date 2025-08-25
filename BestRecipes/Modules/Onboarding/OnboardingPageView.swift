@@ -11,43 +11,37 @@ struct OnboardingPageView: View {
     let item: OnboardingModel
     
     var body: some View {
-        ZStack {
-            // Фоновое изображение
+            VStack(spacing: 14) {
+                Spacer()
+                
+                VStack(alignment: .center) {
+                    Text(item.title)
+                        .font(.custom("Poppins-SemiBold", size: 40))
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                        
+                    Text(item.description)
+                        .font(.custom("Poppins-SemiBold", size: 40))
+                        .foregroundColor(Color(hex: "#F8C89A"))
+                        .multilineTextAlignment(.center)
+                }
+                .padding(20)
+                
+                Spacer()
+            }
+        .ignoresSafeArea()
+        .background {
             Image(item.imageName)
                 .resizable()
                 .scaledToFill()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .ignoresSafeArea()
                 .clipped()
                 .overlay(
                     Color.black.opacity(0.3)
                 )
-            
-            // Контент поверх изображения
-            VStack(spacing: 14) { // Увеличиваем пространство между элементами
-                Spacer()
-                
-                // Заголовок и описание в вертикальном стеке
-                VStack(alignment: .center) { // Выравнивание по центру
-                    Text(item.title)
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding(.bottom, 8)
-                        
-                    Text(item.description)
-                        .font(.body)
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center) // Выравнивание текста по центру
-                }
-                .padding(.horizontal, 150) // Отступы по бокам
-                
-                Spacer()
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .contentShape(Rectangle()) // Для правильного определения размера
+                .ignoresSafeArea()
         }
-        .ignoresSafeArea()
     }
 }
 
