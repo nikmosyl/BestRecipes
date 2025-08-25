@@ -53,7 +53,7 @@ enum CuisineType: String, CaseIterable {
     }
 }
 
-enum MealTypes: String, CaseIterable {
+enum MealType: String, CaseIterable {
     case mainCourse = "main course"
     case sideDish = "side dish"
     case dessert = "dessert"
@@ -69,7 +69,7 @@ enum MealTypes: String, CaseIterable {
     case snack = "snack"
     case drink = "drink"
     
-    static func getRandom() -> MealTypes {
+    static func getRandom() -> MealType {
         allCases.randomElement()!
     }
 }

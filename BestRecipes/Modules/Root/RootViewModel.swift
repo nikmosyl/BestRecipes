@@ -8,9 +8,9 @@
 import Foundation
 
 final class RootViewModel: ObservableObject {
-    //@Published var isOnboardingComplete = DataManager.shared.isOnboardingComplete()
+    @Published var isOnboardingComplete = DataManager.shared.isOnboardingComplete()
     #warning("УБрать дебаг")
-    @Published var isOnboardingComplete = false
+//    @Published var isOnboardingComplete = false
     
     func completeOnboarding() {
         DataManager.shared.completeOnboarding()

@@ -46,9 +46,7 @@ struct ProfileView: View {
             viewModel.loadMyRecipes()
         }
         .navigationDestination(isPresented: $showRecipeDetail) {
-            // TODO: Добавить сюда RecipeDetailView когда он появится
             if let recipe = selectedRecipe {
-                // Добавить сюда:
                 RecipeDetailView(recipe: recipe)
             }
         }

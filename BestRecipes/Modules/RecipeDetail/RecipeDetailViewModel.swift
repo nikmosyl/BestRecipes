@@ -20,6 +20,7 @@ final class RecipeDetailViewModel: ObservableObject {
     
     init(recipe: Recipe) {
         self.state = RecipeDetailState(recipe: recipe)
+        DataManager.shared.addRecipe(recipe, to: .recent)
     }
     
     // MARK: - Computed Properties

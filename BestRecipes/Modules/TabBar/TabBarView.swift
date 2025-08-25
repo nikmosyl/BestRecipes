@@ -15,7 +15,6 @@ struct TabBarView: View {
             ZStack(alignment: .bottom) {
                 viewModel.selectedTab.view
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color(.systemGroupedBackground))
                     .safeAreaInset(edge: .bottom) {
                         Color.clear.frame(height: 60)
                     }
@@ -31,24 +30,6 @@ struct TabBarView: View {
 
 
 // MARK: - Примеры экранов
-struct HomeView: View {
-    var body: some View {
-        VStack {
-            Text("🏠 Главная")
-                .font(.largeTitle)
-        }
-    }
-}
-
-struct BookmarkView: View {
-    var body: some View {
-        VStack {
-            Text("🔖 Закладки")
-                .font(.largeTitle)
-        }
-    }
-}
-
 struct NotificationsView: View {
     var body: some View {
         VStack {
@@ -56,4 +37,8 @@ struct NotificationsView: View {
                 .font(.largeTitle)
         }
     }
+}
+
+#Preview {
+    TabBarView()
 }
