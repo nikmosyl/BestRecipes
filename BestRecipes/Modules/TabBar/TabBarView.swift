@@ -15,7 +15,6 @@ struct TabBarView: View {
             ZStack(alignment: .bottom) {
                 viewModel.selectedTab.view
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color(.systemGroupedBackground))
                     .safeAreaInset(edge: .bottom) {
                         Color.clear.frame(height: 60)
                     }
@@ -38,4 +37,8 @@ struct NotificationsView: View {
                 .font(.largeTitle)
         }
     }
+}
+
+#Preview {
+    TabBarView()
 }
