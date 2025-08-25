@@ -10,61 +10,106 @@ import PhotosUI
 
 @MainActor
 final class CreateRecipeViewModel: ObservableObject {
-    //@AppStorage("savedRecipes") private var savedRecipesData: Data = Data()
+    
+    // MARK: - Constants
+    private enum Constants {
+        static let defaultTitle = "My Recipe"
+        static let defaultReadyInMinutes = 20
+        static let defaultServings = 1
+        static let defaultInstruction = ""
+        static let authorName = "Mine"
+        
+        // ID ranges для разных источников
+        enum IDRange {
+            static let userCreatedMin = 10_001
+            static let userCreatedMax = 99_999
+        }
+    }
     
     @Published var savedRecipesData = DataManager.shared.getRecipesFrom(.mine)
     
     @Published var title: String = ""
     
     @Published var showCookTimePicker: Bool = false
-    @Published var readyInMinutes: Int = 20
+    @Published var readyInMinutes: Int = Constants.defaultReadyInMinutes
     
     @Published var showServesPicker: Bool = false
-    @Published var servings: Int = 1
+    @Published var servings: Int = Constants.defaultServings
     
     @Published var newIngredient: (name: String, quantity: Double) = ("", 0)
     @Published var ingredients: [Ingredient] = []
-
+    
     @Published var selectedPhotoItem: PhotosPickerItem? = nil
     @Published var recipeImage: UIImage? = nil
     @Published var isLoadingImage: Bool = false
     
     func loadImage() {
-        print("loadImage() was called")
+        
         guard let selectedPhotoItem else { return }
-        print("First guard was passed")
         
         isLoadingImage = true
         
         Task {
             if let data = try? await selectedPhotoItem.loadTransferable(type: Data.self) {
                 recipeImage = UIImage(data: data)
-                print("recipeImage is ready")
             }
             isLoadingImage = false
         }
     }
     
     func saveRecipe() {
-        var imageBase64: String? = nil
-        if let recipeImage, let imageData = recipeImage.jpegData(compressionQuality: 0.8) {
-            imageBase64 = imageData.base64EncodedString()
-        }
-
-        let newRecipe = Recipe(
-            id: Int.random(in: 1...10_000),
-            title: title,
-            instruction: "",
+        let recipeId = generateRecipeID() // Уникальный ID для пользовательских рецептов
+        
+        // Сохраняем изображение через ImageStorageManager
+        let imageURL = saveRecipeImage(recipeId: recipeId)
+        
+        let newRecipe = createRecipe(id: recipeId, imageURL: imageURL)
+        
+        DataManager.shared.addRecipe(newRecipe, to: .mine)
+        
+#if DEBUG
+        // Проверяем, что изображение сохранилось
+        ImageStorageManager.shared.printStorageInfo()
+#endif
+        // Очистка формы после сохранения
+        resetForm()
+    }
+    
+    // MARK: - Private Methods
+    private func generateRecipeID() -> Int {
+        Int.random(
+            in: Constants.IDRange.userCreatedMin...Constants.IDRange.userCreatedMax
+        )
+    }
+    
+    private func saveRecipeImage(recipeId: Int) -> String? {
+        guard let recipeImage = recipeImage else { return nil }
+        return ImageStorageManager.shared.saveImage(recipeImage, recipeId: recipeId)
+    }
+    
+    private func createRecipe(id: Int, imageURL: String?) -> Recipe {
+        Recipe(
+            id: id,
+            title: title.isEmpty ? Constants.defaultTitle : title,
+            instruction: Constants.defaultInstruction,
             instructions: nil,
-            author: "Mine",
+            author: Constants.authorName,
             spoonacularScore: nil,
             readyInMinutes: readyInMinutes,
-            imageURL: imageBase64,
+            imageURL: imageURL,
             extendedIngredients: ingredients,
             dishTypes: [],
             servings: servings
         )
-
-        DataManager.shared.addRecipe(newRecipe, to: .mine)
+    }
+    
+    private func resetForm() {
+        title = ""
+        readyInMinutes = Constants.defaultReadyInMinutes
+        servings = Constants.defaultServings
+        ingredients = []
+        newIngredient = ("", 0)
+        recipeImage = nil
+        selectedPhotoItem = nil
     }
 }

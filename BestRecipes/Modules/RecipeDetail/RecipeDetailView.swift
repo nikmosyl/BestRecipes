@@ -81,30 +81,12 @@ struct RecipeDetailView: View {
                 .font(.custom("Poppins-Bold", size: 24))
                 .foregroundColor(.primary)
             
-            // Recipe image
-            AsyncImage(url: URL(string: viewModel.recipe.imageURL ?? "")) { phase in
-                switch phase {
-                case .success(let image):
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(height: 200)
-                        .clipped()
-                case .failure, .empty:
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.2))
-                        .overlay(
-                            Image(systemName: "photo")
-                                .font(.system(size: 50))
-                                .foregroundColor(.gray.opacity(0.5))
-                        )
-                        .frame(height: 200)
-                @unknown default:
-                    ProgressView()
-                        .frame(height: 200)
-                }
-            }
-            .clipShape(RoundedRectangle(cornerRadius: 16))
+            // Recipe image - используем готовый компонент
+            RecipeImageDisplayView(imageURL: viewModel.recipe.imageURL)
+                .aspectRatio(contentMode: .fill)
+                .frame(height: 200)
+                .clipped()
+                .clipShape(RoundedRectangle(cornerRadius: 16))
             
             // Rating and reviews
             HStack(spacing: 16) {
