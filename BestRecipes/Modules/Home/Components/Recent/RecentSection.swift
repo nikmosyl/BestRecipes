@@ -9,8 +9,8 @@ import SwiftUI
 
 struct RecentSection: View {
     @State private var seeAll = false
+    @State private var recipes: [Recipe] = []
     
-    let recipes: [Recipe]
     let title = "Recent recipe"
     
     var body: some View {
@@ -24,12 +24,20 @@ struct RecentSection: View {
                 seeAll = true
             }
         }
+        .padding(.top, 16)
+        .onAppear {
+            recipes = DataManager.shared.getRecipesFrom(.recent)
+        }
         .navigationDestination(isPresented: $seeAll) {
             DiscoverView(
                 recipes: recipes,
                 title: title,
                 showBackButton: true
             )
+        }
+        
+        if recipes.isEmpty {
+            Text("You haven't had time to see anything yet")
         }
         
         ScrollView(.horizontal, showsIndicators: false) {
@@ -44,5 +52,5 @@ struct RecentSection: View {
 }
 
 #Preview {
-    RecentSection(recipes: Array(repeating: Recipe.previewSample, count: 20))
+    RecentSection()
 }

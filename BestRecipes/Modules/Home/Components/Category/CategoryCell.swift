@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CategoryCell: View {
     @State private var isBookmarked: Bool
+    @State private var showDetail = false
     
     let recipe: Recipe
     
@@ -16,8 +17,8 @@ struct CategoryCell: View {
         isBookmarked = DataManager.shared
             .getRecipesFrom(.favorites)
             .contains(where: { bookmark in
-            bookmark.id == recipe.id
-        })
+                bookmark.id == recipe.id
+            })
         
         self.recipe = recipe
     }
@@ -77,6 +78,12 @@ struct CategoryCell: View {
                 .padding(.bottom, 12)
                 
             }
+        }
+        .navigationDestination(isPresented: $showDetail) {
+            RecipeDetailView(recipe: recipe)
+        }
+        .onTapGesture {
+            showDetail = true
         }
     }
 }

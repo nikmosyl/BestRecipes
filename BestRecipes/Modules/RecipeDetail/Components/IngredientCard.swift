@@ -42,7 +42,7 @@ struct IngredientCard: View {
                 }
             }
             
-            Text(ingredient.name.capitalized)
+            Text(ingredient.name?.capitalized ?? "empty")
                 .font(.custom("Poppins-Bold", size: 16))
                 .foregroundColor(.primary)
                 .lineLimit(2)
@@ -71,7 +71,7 @@ struct IngredientCard: View {
     }
     
     private var ingredientImageURL: URL? {
-        DataManager.shared.ingredientImageURL(for: ingredient.imageName)
+        DataManager.shared.ingredientImageURL(for: ingredient.imageName ?? "")
     }
     
     private func formatAmount(_ amount: Double) -> String {

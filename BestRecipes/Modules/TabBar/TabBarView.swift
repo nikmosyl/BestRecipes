@@ -16,7 +16,7 @@ struct TabBarView: View {
                 viewModel.selectedTab.view
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .safeAreaInset(edge: .bottom) {
-                        Color.clear.frame(height: 60)
+                        Color.clear.frame(height: 70)
                     }
                 
                 CustomTabBarView(viewModel: viewModel)

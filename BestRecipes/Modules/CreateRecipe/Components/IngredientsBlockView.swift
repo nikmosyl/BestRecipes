@@ -37,8 +37,8 @@ struct IngredientsBlockView: View {
 
             ForEach(Array(viewModel.ingredients.enumerated()), id: \.offset) { index, ingredient in
                 IngredientRowView(
-                    savedName: ingredient.name,
-                    savedQuantity: ingredient.amount,
+                    savedName: ingredient.name ?? "empty",
+                    savedQuantity: ingredient.amount ?? 0,
                     isNew: false,
                     onRemove: { viewModel.ingredients.remove(at: index) }
                 )
